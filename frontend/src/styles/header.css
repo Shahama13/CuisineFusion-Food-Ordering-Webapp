@@ -1,0 +1,63 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@100;300;400;500;600;900&display=swap');
+
+
+#nav-toggler{
+  -webkit-appearance: none;
+  position: fixed;
+  top:20px; left:30px;
+  cursor: pointer;
+  z-index: 1010;
+  font-size: 4vmax;
+  color:white;
+}
+
+#nav-toggler:checked{
+  transform: rotate(180deg);
+}
+
+#nav-toggler:checked::before{
+  content: '\f00d';
+  color:black;
+  transition: .2s linear .2s;
+}
+
+#nav-toggler:checked ~ .navbar{
+  background-color: white;
+  left:0;
+}
+
+.navbar{
+  position: fixed;
+  top:0; left:-110%;
+  height: 100%;
+  width: 100%;
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  justify-content: center;
+  /* flex-flow: column; */
+  /* padding:0 10%; */
+}
+
+.navbar a{
+  font-size: 2em;
+  position: relative;
+  text-decoration: none;
+  color: black;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+margin: 2vmax;
+}
+/* .navbar a::before{
+  content: attr(data-text); 
+  position: absolute;
+  top:0; left:0;
+  color:rgb(62, 7, 56);
+  transition: .3s linear;
+   clip-path: polygon(0 0, 0 0, 0 100%, 0% 100%); 
+} */
+
+
