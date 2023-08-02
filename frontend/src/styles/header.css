@@ -8,7 +8,7 @@
   cursor: pointer;
   z-index: 1010;
   font-size: 4vmax;
-  color:white;
+  color:#f39c12;
 }
 
 #nav-toggler:checked{
@@ -17,7 +17,7 @@
 
 #nav-toggler:checked::before{
   content: '\f00d';
-  color:black;
+  color:#f39c12;
   transition: .2s linear .2s;
 }
 
@@ -36,8 +36,6 @@
   align-items: center;
   flex-direction: column;
   justify-content: center;
-  /* flex-flow: column; */
-  /* padding:0 10%; */
 }
 
 .navbar a{
@@ -51,13 +49,5 @@
   align-items: center;
 margin: 2vmax;
 }
-/* .navbar a::before{
-  content: attr(data-text); 
-  position: absolute;
-  top:0; left:0;
-  color:rgb(62, 7, 56);
-  transition: .3s linear;
-   clip-path: polygon(0 0, 0 0, 0 100%, 0% 100%); 
-} */
 
 

@@ -1,0 +1,41 @@
+.productDetails {
+  background-color: rgb(227, 217, 217);
+  width: 100vw;
+  max-width: 100%;
+  padding: 5vmax;
+  box-sizing: border-box;
+  display: flex;
+  /* flex-direction: column; */
+}
+
+.carousel-container {
+  width: 100%;
+  width: 400px; 
+  margin: 0 auto;
+}
+
+.carousel-image {
+  width: 100%;
+  height: auto;
+}
+
+/* Optional: Adjust the carousel navigation buttons
+.react-mui-carousel-dots {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 10px;
+}
+
+.react-mui-carousel-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  margin: 0 5px;
+  background-color: #ccc;
+  cursor: pointer;
+}
+
+.react-mui-carousel-dot.active {
+  background-color: #007bff;
+} */
