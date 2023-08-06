@@ -71,7 +71,8 @@
   flex-wrap: wrap;
   /* margin: 2vmax auto; */
   justify-content: center;
-  align-items: center;
+  align-items: flex-start;
+  margin-bottom: 5vmax;
   max-width: 100%;
 }
 

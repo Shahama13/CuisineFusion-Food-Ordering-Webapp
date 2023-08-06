@@ -1,10 +1,10 @@
 import axios from "axios"
 import { allProductFailure, allProductRequest, allProductSuccess, productDetailsFailure, productDetailsRequest, productDetailsSuccess } from "../Reducers/product"
 
-export const getProduct = () => async (dispatch) => {
+export const getProduct = (keyword="") => async (dispatch) => {
     try {
         dispatch(allProductRequest())
-        const { data } = await axios("/api/v1/products")
+        const { data } = await axios(`/api/v1/products?keyword=${keyword}`)
         dispatch(allProductSuccess({
             productCount: data.productCount,
             products: data.products,

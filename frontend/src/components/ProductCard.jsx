@@ -1,13 +1,13 @@
 import React from "react";
-import "../styles/product.css";
+import "../styles/productCard.css";
 import ReactStars from "react-rating-stars-component";
 import { Link } from "react-router-dom";
 
-const Product = ({ product }) => {
+const ProductCard = ({ product }) => {
   const options = {
     count: 5,
-    size: 25,
-    // size: window.innerWidth < 670 ? 25 : 25,
+    // size: 25,
+    size: window.innerWidth <700 ? 15 : 25,
     edit: false,
     isHalf: true,
     value: product.ratings,
@@ -26,4 +26,4 @@ const Product = ({ product }) => {
   );
 };
 
-export default Product;
+export default ProductCard;

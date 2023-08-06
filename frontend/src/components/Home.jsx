@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import "../styles/home.css";
 import { BiSolidMouse } from "react-icons/bi";
-import Product from "../components/Product";
+import ProductCard from "./ProductCard";
 import MetaData from "../MetaData";
 import { useDispatch, useSelector } from "react-redux";
 import { getProduct } from "../Actions/product";
@@ -43,7 +43,7 @@ const Home = () => {
           <h4 className="homeHeading">Top Rated Products</h4>
           <div className="container" id="container">
             {products?.map((product) => (
-              <Product product={product} key={product._id} />
+              <ProductCard product={product} key={product._id} />
             ))}
           </div>
         </>

@@ -5,3 +5,9 @@
   font-family: "Ubuntu", sans-serif;
   scroll-behavior: smooth;
 }
+
+input::-webkit-inner-spin-button,
+input::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}

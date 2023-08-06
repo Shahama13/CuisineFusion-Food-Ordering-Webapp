@@ -1,0 +1,22 @@
+.reviewCard{
+    flex: none;
+    box-shadow: 1px solid rgba(0, 0, 0, 0.2) ;
+    width: 30vmax;
+    border: 1px solid rgba(56, 56, 56, 0.116);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 3vmax;
+    margin: 1vmax;
+}
+.reviewCard>img{
+width: 10vmax;
+}
+.reviewCard>p{
+    color: rgba(0, 0, 0, 0.836);
+    font: 600 1vmax "Roboto";
+}
+.reviewCard>span{
+    color: rgba(0, 0, 0, 0.445);
+    font: 200 1.2vmax "Ubuntu";
+}

@@ -28,7 +28,7 @@ const Header = () => {
           <FastfoodIcon fontSize="large" sx={{ marginRight: "10px" }} />
           <h6>Browse Menu</h6>
         </Link>
-        <Link to="/Search" data-text="home" onClick={handleMenuItemClick}>
+        <Link to="/search" data-text="home" onClick={handleMenuItemClick}>
           <SearchIcon fontSize="large" sx={{ marginRight: "10px" }} />
           <h6>Search</h6>
         </Link>
