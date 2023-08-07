@@ -11,7 +11,9 @@ const productSlice = createSlice({
         allProductSuccess: (state, action) => {
             state.loading = false;
             state.products = action.payload.products;
-            state.productCount = action.payload.productCount;
+            state.resultPerPage= action.payload.resultPerPage;
+            state.filteredProductCount=action.payload.filteredProductCount;
+            // state.productCount = action.payload.productCount;
         },
         allProductFailure: (state, action) => {
             state.loading = false;

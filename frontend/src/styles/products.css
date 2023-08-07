@@ -1,17 +1,22 @@
-.productsHeading{
-    margin: 2vmax auto;
-    width: 15vw;
-    border-bottom: 1px solid rgba(0, 0, 0, 0.171);
-    padding: 1vmax;
-    color: rgba(3, 0, 0, 0.879);
-    font: 500 2vmax "Ubuntu";
-    text-align: center;
+.productsHeading {
+  margin: 2vmax auto;
+  width: 15vw;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.171);
+  padding: 1vmax;
+  color: rgba(3, 0, 0, 0.879);
+  font: 500 2vmax "Ubuntu";
+  text-align: center;
 }
-.products{
-    display: flex;
-    flex-wrap: wrap;
-    padding: 0 5vmax;
-    justify-content: center;
-    align-items: flex-start;
-    margin-bottom: 5vmax;
+.products {
+  display: flex;
+  flex-wrap: wrap;
+  padding: 0 5vmax;
+  justify-content: center;
+  align-items: flex-start;
+  margin-bottom: 5vmax;
+}
+.paginationBox {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 5vmax;
 }
