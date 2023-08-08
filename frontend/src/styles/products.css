@@ -1,22 +1,59 @@
 .productsHeading {
   margin: 2vmax auto;
-  width: 15vw;
+  width: 200px;
   border-bottom: 1px solid rgba(0, 0, 0, 0.171);
   padding: 1vmax;
   color: rgba(3, 0, 0, 0.879);
   font: 500 2vmax "Ubuntu";
   text-align: center;
 }
+
 .products {
   display: flex;
   flex-wrap: wrap;
-  padding: 0 5vmax;
   justify-content: center;
   align-items: flex-start;
+  margin-left: 5vmax;
   margin-bottom: 5vmax;
 }
+.midContent {
+  display: flex;
+  flex-direction: row;
+  margin-left: 5vmax;
+}
+
 .paginationBox {
   display: flex;
   justify-content: center;
   margin-bottom: 5vmax;
+}
+.filterBox {
+  width: 20vmax;
+}
+.categoryBox{
+padding: 0;
+
+}
+.category-link{
+list-style: none;
+color: rgba(0, 0, 0, 0.6);
+font: 200 1.6vmax "Ubuntu";
+margin: 0.4vmax 0vmax;
+cursor: pointer;
+transition: all 0.5s;
+}
+.category-link:hover{
+  color: tomato;
+}
+@media screen and (max-width: 685px) {
+  .midContent {
+    flex-direction: column;
+    align-items: center;
+  }
+  .filterBox {
+    width: 35vmax;
+  }
+  .products {
+    margin-left: 2vmax;
+  }
 }

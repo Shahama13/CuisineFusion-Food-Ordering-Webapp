@@ -4,7 +4,7 @@
   flex-direction: column;
   text-decoration: none;
   color: rgb(48, 48, 48);
-  margin: 1vmax;
+  margin: 1vmax 2vmax;
   justify-content: center;
   transition: all 0.5s;
   padding-bottom: 0.5vmax;

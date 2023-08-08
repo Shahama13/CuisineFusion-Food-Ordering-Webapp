@@ -9,15 +9,23 @@ import { getProduct } from "../Actions/product";
 import { useParams } from "react-router-dom";
 import Pagination from "@mui/material/Pagination";
 import Stack from "@mui/material/Stack";
-// import { current } from "@reduxjs/toolkit";
+import { Slider, Typography } from "@mui/material";
+
+const categories = ["Indian", "Chinese", "Italian", "Burgers", "Pizza"];
 
 const Products = () => {
   const dispatch = useDispatch();
   const params = useParams();
+  const [price, setPrice] = useState([0, 5000]);
+  const [category, setCategory] = useState("");
+
+  const priceHandler = (event, value) => {
+    setPrice(value);
+    setCurrentPage(1);
+  };
   const [currentPage, setCurrentPage] = useState(1);
-  const { products, loading, error,filteredProductCount, resultPerPage } = useSelector(
-    (state) => state.products
-  );
+  const { products, loading, error, filteredProductCount, resultPerPage } =
+    useSelector((state) => state.products);
   const setCurrentPageNo = (e, value) => {
     setCurrentPage(value);
   };
@@ -27,8 +35,10 @@ const Products = () => {
       toast.error(error);
       dispatch(clearErrors());
     }
-    dispatch(getProduct(keyword, currentPage));
-  }, [dispatch, error, keyword, currentPage]);
+    console.log(category)
+    console.log(products)
+    dispatch(getProduct(keyword, currentPage, price,category));
+  }, [dispatch, error, keyword, currentPage, price,category]);
   return (
     <>
       {loading ? (
@@ -36,14 +46,59 @@ const Products = () => {
       ) : (
         <>
           <div className="productsHeading"> Menu Items </div>
-          <div className="products">
-            {products?.map((product) => (
-              <ProductCard key={product._id} product={product} />
-            ))}
+          <div className="midContent">
+            <div className="filterBox">
+              <Typography
+                sx={{
+                  marginBottom: " 4vmax",
+                  marginLeft: " -2vmax",
+                }}
+              >
+                Price
+              </Typography>
+              <Slider
+                value={price}
+                onChange={priceHandler}
+                aria-label="Price"
+                valueLabelDisplay="on"
+                sx={{
+                  "& .css-nnid7-MuiSlider-valueLabel": {
+                    color: "black",
+                    backgroundColor: "#ebe5d5",
+                  },
+                }}
+                step={1000}
+                marks
+                min={0}
+                max={5000}
+              />
+
+              <Typography sx={{cursor:"pointer", marginLeft: " -2vmax"}} onClick={()=> setCategory("")}> Categories </Typography>
+              <ul className="categoryBox">
+                {categories.map((category) => (
+                  <li
+                    className="category-link"
+                    key={category}
+                    onClick={() => setCategory(category)}
+                  >
+                    {category}
+                  </li>
+                ))}
+              </ul>
+            </div>
+
+            <div className="products">
+              {products && products.length >= 1 ? (
+                products?.map((product) => (
+                  <ProductCard key={product._id} product={product} />
+                ))
+              ) : (
+                <div>Nothing</div>
+              )}
+            </div>
           </div>
-          {filteredProductCount < resultPerPage ? (
-            <div></div>
-          ) : (
+
+          {resultPerPage < filteredProductCount && (
             <div className="paginationBox">
               <Stack spacing={2}>
                 <Pagination
@@ -51,14 +106,13 @@ const Products = () => {
                   page={currentPage}
                   onChange={setCurrentPageNo}
                   size="large"
-                  color="primary"
+                  color={"primary"}
                   count={Math.ceil(filteredProductCount / resultPerPage)}
                   variant="outlined"
                   shape="rounded"
                 />
               </Stack>
             </div>
-          
           )}
         </>
       )}
