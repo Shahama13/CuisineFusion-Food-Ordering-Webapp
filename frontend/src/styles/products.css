@@ -15,6 +15,7 @@
   align-items: flex-start;
   margin-left: 5vmax;
   margin-bottom: 5vmax;
+  min-height: 60vh;
 }
 .midContent {
   display: flex;
@@ -33,6 +34,13 @@
 .categoryBox{
 padding: 0;
 
+}
+.foundNothing{
+  display: flex;
+  height: 40vmax;
+  width: 50vmax;
+  justify-content: center;
+  align-items: center;
 }
 .category-link{
 list-style: none;

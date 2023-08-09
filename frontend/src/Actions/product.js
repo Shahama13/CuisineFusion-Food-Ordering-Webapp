@@ -1,12 +1,12 @@
 import axios from "axios"
 import { allProductFailure, allProductRequest, allProductSuccess, productDetailsFailure, productDetailsRequest, productDetailsSuccess } from "../Reducers/product"
 
-export const getProduct = (keyword="",currentPage=1,price=[0,5000],category) => async (dispatch) => {
+export const getProduct = (keyword="",currentPage=1,price=[0,5000],category,ratings=0) => async (dispatch) => {
     try {
         dispatch(allProductRequest())
-        let link =`/api/v1/products?keyword=${keyword}&page=${currentPage}&price[gte]=${price[0]}&price[lte]=${price[1]}`
+        let link =`/api/v1/products?keyword=${keyword}&page=${currentPage}&price[gte]=${price[0]}&price[lte]=${price[1]}&ratings[gte]=${ratings}`
         if(category){
-            link= `/api/v1/products?keyword=${keyword}&page=${currentPage}&price[gte]=${price[0]}&price[lte]=${price[1]}&category=${category}`
+            link= `/api/v1/products?keyword=${keyword}&page=${currentPage}&price[gte]=${price[0]}&price[lte]=${price[1]}&category=${category}&ratings[gte]=${ratings}`
         }
 
         const { data } = await axios(link)

@@ -9,6 +9,7 @@ import ReactStars from "react-rating-stars-component";
 import Loader from "./Loader";
 import { toast } from "react-hot-toast";
 import { clearError } from "../Reducers/product";
+import MetaData from "../MetaData";
 const ProductDetails = () => {
   const dispatch = useDispatch();
   const params = useParams();
@@ -40,6 +41,7 @@ const ProductDetails = () => {
         <Loader />
       ) : (
         <>
+                 <MetaData title="Item Details" />
           <div className="productDetails">
             <div className="carousel-container">
               <Carousel animation="fade">

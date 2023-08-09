@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import "../styles/search.css";
-import SearchIcon from "@mui/icons-material/Search";
 import { useNavigate } from "react-router-dom";
+import MetaData from "../MetaData";
 
 const Search = () => {
   const navigate = useNavigate();
@@ -16,6 +16,7 @@ const Search = () => {
   };
   return (
     <>
+        <MetaData title="Searchpage" />
       <form onSubmit={submitHandler} className="searchBox">
         <input
           type="text"

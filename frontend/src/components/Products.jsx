@@ -10,6 +10,7 @@ import { useParams } from "react-router-dom";
 import Pagination from "@mui/material/Pagination";
 import Stack from "@mui/material/Stack";
 import { Slider, Typography } from "@mui/material";
+import MetaData from "../MetaData";
 
 const categories = ["Indian", "Chinese", "Italian", "Burgers", "Pizza"];
 
@@ -17,6 +18,7 @@ const Products = () => {
   const dispatch = useDispatch();
   const params = useParams();
   const [price, setPrice] = useState([0, 5000]);
+  const [ratings, setRatings] = useState(0);
   const [category, setCategory] = useState("");
 
   const priceHandler = (event, value) => {
@@ -35,16 +37,15 @@ const Products = () => {
       toast.error(error);
       dispatch(clearErrors());
     }
-    console.log(category)
-    console.log(products)
-    dispatch(getProduct(keyword, currentPage, price,category));
-  }, [dispatch, error, keyword, currentPage, price,category]);
+    dispatch(getProduct(keyword, currentPage, price, category, ratings));
+  }, [dispatch, error, keyword, currentPage, price, category, ratings]);
   return (
     <>
       {loading ? (
         <Loader />
       ) : (
         <>
+          <MetaData title="Browse Menu" />
           <div className="productsHeading"> Menu Items </div>
           <div className="midContent">
             <div className="filterBox">
@@ -73,29 +74,72 @@ const Products = () => {
                 max={5000}
               />
 
-              <Typography sx={{cursor:"pointer", marginLeft: " -2vmax"}} onClick={()=> setCategory("")}> Categories </Typography>
+              <Typography
+                sx={{ cursor: "pointer", marginLeft: " -2vmax" }}
+                onClick={() => setCategory("")}
+              >
+                Categories
+              </Typography>
               <ul className="categoryBox">
                 {categories.map((category) => (
                   <li
                     className="category-link"
                     key={category}
-                    onClick={() => setCategory(category)}
+                    onClick={() => {
+                      setCategory(category);
+                      setCurrentPage(1);
+                    }}
                   >
                     {category}
                   </li>
                 ))}
               </ul>
+
+              <Typography
+                sx={{ marginLeft: " -2vmax" }}
+                onClick={() => setRatings(0)}
+              >
+                {" "}
+                Ratings above
+              </Typography>
+              <Slider
+                value={ratings}
+                onChange={(e, value) => {
+                  setRatings(value);
+                  setCurrentPage(1);
+                }}
+                sx={{
+                  "& .css-nnid7-MuiSlider-valueLabel": {
+                    color: "black",
+                    backgroundColor: "#ebe5d5",
+                  },
+                }}
+                valueLabelDisplay="auto"
+                step={1}
+                marks
+                min={0}
+                max={5}
+              />
             </div>
 
-            <div className="products">
+            {/* <div className="products">
               {products && products.length >= 1 ? (
                 products?.map((product) => (
                   <ProductCard key={product._id} product={product} />
                 ))
               ) : (
-                <div>Nothing</div>
+                <div>No Items Found</div>
               )}
-            </div>
+            </div> */}
+            {products && products.length >= 1 ? (
+              <div className="products">
+                {products.map((product) => (
+                  <ProductCard key={product._id} product={product} />
+                ))}
+              </div>
+            ) : (
+              <div className="foundNothing">No Items Found</div>
+            )}
           </div>
 
           {resultPerPage < filteredProductCount && (
