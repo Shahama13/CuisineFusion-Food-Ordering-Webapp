@@ -98,7 +98,7 @@
   cursor: pointer;
   color: white;
   transition: all 0.5s;
-  background-color: tomato;
+  background-color: #3a9dff;
   font-weight: bold;
   border-radius: 47px;
   padding: 1.1vmax 3vmax;
@@ -107,7 +107,7 @@
 }
 
 .details-Block3-1 > button:last-child:hover {
-  background-color: rgb(237, 87, 60);
+  background-color: #1560bd;
 }
 .details-Block4 {
   color: rgba(0, 0, 0, 0.897);
@@ -119,7 +119,7 @@
 }
 .productDetails > div:last-child > button:last-child {
   border: none;
-  background-color: tomato;
+  background-color: #3a9dff;
   font: 00 2vmax "Roboto";
   border-radius: 20px;
   padding: 1vmax 2.5vmax;
@@ -130,7 +130,7 @@
   outline: none;
 }
 .productDetails > div:last-child > button:last-child:hover {
-  background-color: rgb(237, 87, 60);
+  background-color: #1560bd;
   transform: scale(1.1);
 }
 .reviewsHeading{

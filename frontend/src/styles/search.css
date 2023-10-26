@@ -5,7 +5,7 @@
   width: 100vw;
   height: 100vh;
   max-width: 100%;
-  background-color: rgb(244, 234, 234);
+  background-color: #b9d9eb;
   position: fixed;
   top: 0;
   z-index: 1;
@@ -20,16 +20,21 @@
   padding: 1vmax 2vmax;
   width: 50%;
   outline: none;
-  border-radius: 0%;
+  border-top-left-radius: 25px;
+  border-bottom-left-radius: 25px;
   font: 300 1.5vmax "Ubuntu";
   box-sizing: border-box;
   height: 10%;
 }
 
 .searchBox > input[type="submit"] {
-  background-color: tomato;
+  background-color: #3a9dff;
   padding: 1vmax;
   width: 10%;
+  border-top-right-radius: 25px;
+  border-bottom-right-radius: 25px;
+  border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
   cursor: pointer;
   color: white;
   transition: all 0.5s;
@@ -37,5 +42,5 @@
 }
 
 .searchBox > input[type="submit"] :hover {
-    background-color: lightcoral;
+  background-color: #1560bd;
 }

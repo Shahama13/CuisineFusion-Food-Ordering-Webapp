@@ -33,7 +33,7 @@ const ProductDetails = () => {
     // size: window.innerWidth < 670 ? 25 : 25,
     isHalf: true,
     value: product?.ratings,
-    activeColor: "tomato",
+    activeColor: "#3a9dff",
   };
   return (
     <>

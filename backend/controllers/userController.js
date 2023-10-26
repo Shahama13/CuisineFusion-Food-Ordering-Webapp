@@ -4,21 +4,28 @@ import User from "../models/userModel.js";
 import sendToken from "../utils/jwtToken.js";
 import sendEmail from "../utils/sendEmail.js";
 import crypto from "crypto"
+import cloudinary from "cloudinary"
 
 // Register a User
 export const registerUser = catchAsyncError(async (req, res, next) => {
     const { name, email, password } = req.body;
-    let user = await User.findOne({ email })
+    const user = await User.findOne({ email })
     if (user) return next(new ErrorHandler("User already exists with this email"))
-    user = await User.create({
-        name, email, password,
-        avatar: {
-            public_id: "public_id",
-            url: "url"
+    let newUser = { name, email, password };
+    if (req.body.avatar) {
+        const myCloud = await cloudinary.v2.uploader.upload(req.body.avatar, {
+            folder: "avatar",
+            width: 150,
+            crop: "scale",
+        })
+        newUser.avatar = {
+            public_id: myCloud.public_id,
+            url: myCloud.secure_url
         }
-    })
+    }
+    newUser = await User.create(newUser)
 
-    sendToken(user, 201, res)
+    sendToken(newUser, 201, res)
 })
 
 // Login User
@@ -126,20 +133,50 @@ export const updatepassword = catchAsyncError(async (req, res, next) => {
 
 // Update profile
 export const updateProfile = catchAsyncError(async (req, res, next) => {
-    const newUser = {
-        name: req.body.name,
-        email: req.body.email,
+
+    const { name, email, avatar } = req.body;
+   
+    let newUser = {};
+    if (name) {
+        newUser.name = name
     }
+    if (email) {
+        newUser.email = email
+    }
+    if (avatar) {
+
+        const prevUser = await User.findById(req.user._id)
+        if (prevUser.avatar.length>0) {
+            await cloudinary.v2.uploader.destroy(prevUser.avatar.public_id)
+        }
+
+       else {
+        const myCloud = await cloudinary.v2.uploader.upload(req.body.avatar, {
+            folder: "avatar",
+            width: 150,
+            crop: "scale",
+        })
+
+        newUser.avatar = {
+            public_id: myCloud.public_id,
+            url: myCloud.secure_url
+        }
+    }
+
+}
+
+
+
     // TO Do Cloudinary
     await User.findByIdAndUpdate(req.user._id, newUser, {
-        new: true,
-        runValidators: true,
-        useFindAndModify: true,
-    })
+    new: true,
+    runValidators: true,
+    useFindAndModify: true,
+})
     res.status(200).json({
-        success: true,
-        message: "Profile updated"
-    })
+    success: true,
+    message: "Profile updated"
+})
 })
 
 // Get users - A

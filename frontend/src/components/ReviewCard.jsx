@@ -12,7 +12,7 @@ const ReviewCard = ({review}) => {
     // size: window.innerWidth < 670 ? 25 : 25,
     isHalf: true,
     value: review?.rating,
-    activeColor: "tomato",
+    activeColor: "#3a9dff",
   };
   return (
    <div className="reviewCard">

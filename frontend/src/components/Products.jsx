@@ -122,15 +122,7 @@ const Products = () => {
               />
             </div>
 
-            {/* <div className="products">
-              {products && products.length >= 1 ? (
-                products?.map((product) => (
-                  <ProductCard key={product._id} product={product} />
-                ))
-              ) : (
-                <div>No Items Found</div>
-              )}
-            </div> */}
+           
             {products && products.length >= 1 ? (
               <div className="products">
                 {products.map((product) => (

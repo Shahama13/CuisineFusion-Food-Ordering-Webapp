@@ -36,7 +36,7 @@ const Header = () => {
           <LocalMallIcon fontSize="large" sx={{ marginRight: "10px" }} />
           <h6>Cart</h6>
         </Link>
-        <Link to="/account" data-text="home" onClick={handleMenuItemClick}>
+        <Link to="/login" data-text="home" onClick={handleMenuItemClick}>
           <AccountBoxRoundedIcon fontSize="large" sx={{ marginRight: "10px" }} />
           <h6>Account</h6>
         </Link>

@@ -7,11 +7,11 @@ const ProductCard = ({ product }) => {
   const options = {
     count: 5,
     // size: 25,
-    size: window.innerWidth <700 ? 15 : 25,
+    size: window.innerWidth < 700 ? 15 : 25,
     edit: false,
     isHalf: true,
     value: product.ratings,
-    activeColor: "#ffd700",
+    activeColor: "#00BFFF",
   };
   return (
     <Link className="productCard" to={`/product/${product._id}`}>
