@@ -1,7 +1,7 @@
 import axios from "axios";
 import { loadUserFail, loadUserRequest, loadUserSuccess, loginFail, loginRequest, loginSuccess, logoutSuccess, registerFail, registerRequest, registerSuccess } from "../Reducers/user";
 import toast from "react-hot-toast";
-import { updateProfileFail, updateProfileRequest, updateProfileSuccess } from "../Reducers/profile";
+import { forgotPasswordFail, forgotPasswordRequest, forgotPasswordSuccess, resetPasswordFail, resetPasswordRequest, resetPasswordSuccess, updatePasswordFail, updatePasswordRequest, updatePasswordSuccess, updateProfileFail, updateProfileRequest, updateProfileSuccess } from "../Reducers/profile";
 
 export const login = (email, password) => async (dispatch) => {
     try {
@@ -70,11 +70,11 @@ export const logout = () => async (dispatch) => {
     }
 }
 
-export const updateProfile = (name, email,avatar) => async (dispatch) => {
+export const updateProfile = (name, email, avatar) => async (dispatch) => {
     try {
         dispatch(updateProfileRequest())
         const { data } = await axios.put("/api/v1/update/me", {
-            name, email,avatar
+            name, email, avatar
         })
         dispatch(updateProfileSuccess({
             isUpdated: data.success
@@ -83,6 +83,60 @@ export const updateProfile = (name, email,avatar) => async (dispatch) => {
 
     } catch (error) {
         dispatch(updateProfileFail({
+            error: error.response.data.message
+        }))
+    }
+}
+
+export const updatePassword = (oldPassword, newPassword, confirmPassword) => async (dispatch) => {
+    try {
+        dispatch(updatePasswordRequest())
+        const { data } = await axios.put("/api/v1/password/update", {
+            oldPassword, newPassword, confirmPassword
+        })
+        dispatch(updatePasswordSuccess({
+            isUpdated: data.success
+        }))
+        if (data.success === true) {
+            toast.success("Your password has been changed successfully")
+        }
+
+    } catch (error) {
+        dispatch(updatePasswordFail({
+            error: error.response.data.message
+        }))
+    }
+}
+
+export const forgotPassword = (email) => async (dispatch) => {
+    try {
+        dispatch(forgotPasswordRequest())
+        const { data } = await axios.post("/api/v1/password/forgot", {
+           email
+        })
+        dispatch(forgotPasswordSuccess())
+        toast.success(data.message)
+
+    } catch (error) {
+        dispatch(forgotPasswordFail({
+            error: error.response.data.message
+        }))
+    }
+}
+
+export const resetPassword = (token, password, confirmPassword) => async (dispatch) => {
+    try {
+        dispatch(resetPasswordRequest())
+        const { data } = await axios.put(`/api/v1/password/reset/${token}`, {
+            password,confirmPassword
+        })
+        dispatch(resetPasswordSuccess())
+        if (data.success===true){
+            toast.success("Your password has been changed successfully")
+        }
+
+    } catch (error) {
+        dispatch(resetPasswordFail({
             error: error.response.data.message
         }))
     }

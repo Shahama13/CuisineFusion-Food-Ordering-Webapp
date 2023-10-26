@@ -4,16 +4,18 @@ import {
   Routes,
   Route
 } from "react-router-dom"
-import Home from './components/Home';
-import ProductDetails from './components/ProductDetails';
-import Products from './components/Products';
+import Home from './screens/Home';
+import ProductDetails from './screens/ProductDetails';
+import Products from './screens/Products';
+import PasswordReset from './screens/PasswordReset';
 import Footer from './components/Footer';
-import Search from './components/Search';
+import Search from './screens/Search';
+import ForgotPassword from './screens/ForgotPassword';
 import UserOptions from './components/UserOptions';
-import LoginSignup from './components/LoginSignup';
-import UpdateProfile from './components/UpdateProfile';
-import Profile from './components/Profile';
-import ChangePassword from './components/ChangePassword';
+import LoginSignup from './screens/LoginSignup';
+import UpdateProfile from './screens/UpdateProfile';
+import Profile from './screens/Profile';
+import UpdatePassword from './screens/UpdatePassword';
 import { useEffect } from 'react';
 import store from "./store"
 import { loadUser } from './Actions/user';
@@ -35,11 +37,14 @@ function App() {
         <Route path="/products/:keyword" element={<Products />} />
         <Route exact path="/search" element={<Search />} />
         <Route exact path="/login" element={<LoginSignup />} />
+        <Route exact path="/password/forgot" element={<ForgotPassword />} />
+        <Route exact path="/password/reset/:token" element={<PasswordReset />} />
+
 
         <Route element={<LoggedInUser isAuthenticated={isAuthenticated} />}>
           <Route exact path="/account" element={<Profile />} />
           <Route exact path="/me/update" element={<UpdateProfile />} />
-          <Route exact path="/password/update" element={<ChangePassword />} />
+          <Route exact path="/password/update" element={<UpdatePassword />} />
         </Route>
         
       </Routes>

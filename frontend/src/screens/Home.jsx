@@ -1,17 +1,19 @@
 import React, { useEffect } from "react";
 import "../styles/home.css";
 import { BiSolidMouse } from "react-icons/bi";
-import ProductCard from "./ProductCard";
+import ProductCard from "../components/ProductCard";
 import MetaData from "../MetaData";
 import { useDispatch, useSelector } from "react-redux";
 import { getProduct } from "../Actions/product";
-import Loader from "./Loader";
+import Loader from "../components/Loader";
 import toast from "react-hot-toast";
 import { clearErrors } from "../Reducers/product";
 
 const Home = () => {
   const dispatch = useDispatch();
-  const { products, loading, error, productCount } = useSelector(
+  const { products, loading, error,
+    //  productCount 
+    } = useSelector(
     (state) => state.products
   );
 

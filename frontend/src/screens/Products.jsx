@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
 import "../styles/products.css";
 import { useSelector, useDispatch } from "react-redux";
-import Loader from "./Loader";
-import ProductCard from "./ProductCard";
+import Loader from "../components/Loader";
+import ProductCard from "../components/ProductCard";
 import { toast } from "react-hot-toast";
 import { clearErrors } from "../Reducers/product";
 import { getProduct } from "../Actions/product";

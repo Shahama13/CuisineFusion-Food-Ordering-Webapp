@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
 import "../styles/loginSignup.css";
-import Loader from "./Loader";
+import Loader from "../components/Loader";
 import EmailOutlinedIcon from "@mui/icons-material/EmailOutlined";
 import KeyOutlinedIcon from "@mui/icons-material/KeyOutlined";
 import TagFacesIcon from "@mui/icons-material/TagFaces";

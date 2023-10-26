@@ -5,7 +5,7 @@ import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 import profilePng from "../Assets/profile.png";
 import { Link } from "react-router-dom";
-import Loader from "./Loader";
+import Loader from "../components/Loader";
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 
 const Profile = () => {
@@ -19,7 +19,7 @@ const Profile = () => {
 
   return (
     <>
-      <MetaData title={`${user.name}'s Profile`} />
+      <MetaData title={`Profile`} />
       {loading ? (
         <Loader />
       ) : (
@@ -44,7 +44,7 @@ const Profile = () => {
             </div>
             <div>
               <Link to="/orders">My Orders</Link>
-              <Link to="/password/update">Change Password</Link>
+              <Link to="/password/update">Update Password</Link>
             </div>
           </div>
         </div>

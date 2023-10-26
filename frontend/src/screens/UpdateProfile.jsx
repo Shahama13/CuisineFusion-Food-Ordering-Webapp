@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from "react";
 import "../styles/updateProfile.css";
-import Loader from "./Loader";
+import Loader from "../components/Loader";
 import EmailOutlinedIcon from "@mui/icons-material/EmailOutlined";
 import TagFacesIcon from "@mui/icons-material/TagFaces";
-import { Link, useNavigate } from "react-router-dom";
+import {  useNavigate } from "react-router-dom";
 import profilePng from "../Assets/profile.png";
 import { useDispatch, useSelector } from "react-redux";
 import { clearError, updateProfileReset } from "../Reducers/profile";

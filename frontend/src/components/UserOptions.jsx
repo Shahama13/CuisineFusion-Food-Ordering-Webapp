@@ -24,12 +24,6 @@ const UserOptions = () => {
 
   const { user } = useSelector((state) => state.user);
 
-  const actions = [
-    { icon: <HomeIcon />, name: "Home", func: home },
-    { icon: <FastfoodIcon />, name: "BrowseMenu", func: browseMenu },
-    { icon: <SearchIcon />, name: "Search", func: search },
-    { icon: <ShoppingBagIcon />, name: "Cart", func: cart },
-  ];
   function home() {
     navigate("/");
   }
@@ -58,6 +52,14 @@ const UserOptions = () => {
     dispatch(logout());
     navigate("/products");
   }
+
+  const actions = [
+    { icon: <HomeIcon />, name: "Home", func: home },
+    { icon: <FastfoodIcon />, name: "BrowseMenu", func: browseMenu },
+    { icon: <SearchIcon />, name: "Search", func: search },
+    { icon: <ShoppingBagIcon />, name: "Cart", func: cart },
+  ];
+  
   if (user) {
     actions.push(
       { icon: <PersonIcon />, name: "My Account", func: account },

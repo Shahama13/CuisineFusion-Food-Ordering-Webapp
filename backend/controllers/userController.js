@@ -61,7 +61,7 @@ export const forgotPassword = catchAsyncError(async (req, res, next) => {
 
     await user.save({ validateBeforeSave: false });
 
-    const resetPasswordUrl = `${req.protocol}://${req.get("host")}/api/v1/password/reset/${resetToken}`
+    const resetPasswordUrl = `${req.protocol}://${req.get("host")}/password/reset/${resetToken}`
 
     const message = `Your password reset token is ${resetPasswordUrl}`
 
@@ -90,7 +90,7 @@ export const forgotPassword = catchAsyncError(async (req, res, next) => {
 export const resetPassword = catchAsyncError(async (req, res, next) => {
     const resetPasswordToken = crypto.createHash("sha256").update(req.params.token).digest("hex")
     const user = await User.findOne({ resetPasswordToken, resetPasswordExpire: { $gt: Date.now() } })
-    if (!user) return next(new ErrorHandler("User not found", 404))
+    if (!user) return next(new ErrorHandler("Invalid token", 404))
 
     if (req.body.password !== req.body.confirmPassword) {
         return next(new ErrorHandler("Password doesn't match", 400))
@@ -103,7 +103,6 @@ export const resetPassword = catchAsyncError(async (req, res, next) => {
     await user.save()
 
     sendToken(user, 200, res)
-
 
 })
 
