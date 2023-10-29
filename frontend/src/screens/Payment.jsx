@@ -1,8 +1,8 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useEffect, useRef } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import toast from "react-hot-toast";
 import CheckoutSteps from "../components/CheckoutSteps";
-import { loadStripe } from "@stripe/stripe-js";
+// import { loadStripe } from "@stripe/stripe-js";
 import {
   CardNumberElement,
   CardCvcElement,
@@ -17,26 +17,49 @@ import {
   KeyIcon,
 } from "@heroicons/react/24/solid";
 import { useNavigate } from "react-router-dom";
+import { clearErrors } from "../Reducers/order";
+import { createOrder } from "../Actions/order";
 
 const Payment = () => {
-  const { cartItems, shippingInfo } = useSelector((state) => state.cart);
-  const { user } = useSelector((state) => state.user);
+
   const navigate = useNavigate();
-  const payBtn = useRef(null);
   const dispatch = useDispatch();
   const stripe = useStripe();
   const elements = useElements();
+  const payBtn = useRef(null);
+
   const orderInfo = JSON.parse(sessionStorage.getItem("orderInfo"));
+  const { cartItems, shippingInfo } = useSelector((state) => state.cart);
+  const { user } = useSelector((state) => state.user);
+  const { error } = useSelector((state) => state.order);
+
   const paymentData = {
     amount: Math.round(orderInfo.total * 100),
   };
+
+  const order = {
+    shippingInfo,
+    orderItems: cartItems,
+    itemsPrice: orderInfo.subTotal,
+    taxPrice: orderInfo.gst,
+    shippingPrice: orderInfo.shippingCharges,
+    totalPrice:orderInfo.total,
+  };
+
+  useEffect(() => {
+    if (error) {
+      toast.error(error);
+      dispatch(clearErrors());
+    }
+  }, [error, dispatch]);
+
   const submitHandler = async (e) => {
     e.preventDefault();
     payBtn.current.disabled = true;
     try {
       const { data } = await axios.post("/api/v1/payment/process", paymentData);
       const client_secret = data.client_secret;
-      
+
       if (!stripe || !elements) return;
       const result = await stripe.confirmCardPayment(client_secret, {
         payment_method: {
@@ -59,6 +82,11 @@ const Payment = () => {
         toast.error(result.error.message);
       } else {
         if (result.paymentIntent.status === "succeeded") {
+          order.paymentInfo = {
+            id: result.paymentIntent.id,
+            status: result.paymentIntent.status,
+          };
+          dispatch(createOrder(order))
           navigate("/success");
         } else {
           toast.error("Some issue while processing payment");

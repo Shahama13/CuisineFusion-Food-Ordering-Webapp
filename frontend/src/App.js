@@ -8,8 +8,9 @@ import { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import Home from './screens/Home';
 import ProductDetails from './screens/ProductDetails';
+import OrderSuccess from './screens/OrderSuccess';
 import Products from './screens/Products';
-import Address from './screens/Address.jsx';
+import Address from './screens/Address';
 import PasswordReset from './screens/PasswordReset';
 import Search from './screens/Search';
 import Cart from './screens/Cart';
@@ -63,6 +64,7 @@ function App() {
           <Route exact path="/password/update" element={<UpdatePassword />} />
           <Route exact path="/address" element={<Address />} />
           <Route exact path="/order/summary" element={<OrderSummary />} />
+          <Route exact path="/success" element={<OrderSuccess />} />
           {stripeApiKey && (
             <Route exact path="/process/payment"
               element={
