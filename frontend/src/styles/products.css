@@ -4,7 +4,7 @@
   border-bottom: 1px solid rgba(0, 0, 0, 0.171);
   padding: 1vmax;
   color: rgba(3, 0, 0, 0.879);
-  font: 500 2vmax "Ubuntu";
+  font: 500 2vmax "DM Serif Display";
   text-align: center;
 }
 
@@ -45,7 +45,7 @@ padding: 0;
 .category-link{
 list-style: none;
 color: rgba(0, 0, 0, 0.6);
-font: 200 1.6vmax "Ubuntu";
+font: 200 1.6vmax "DM Serif Display";
 margin: 0.4vmax 0vmax;
 cursor: pointer;
 transition: all 0.5s;

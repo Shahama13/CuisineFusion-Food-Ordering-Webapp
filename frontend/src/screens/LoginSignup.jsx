@@ -4,7 +4,7 @@ import Loader from "../components/Loader";
 import EmailOutlinedIcon from "@mui/icons-material/EmailOutlined";
 import KeyOutlinedIcon from "@mui/icons-material/KeyOutlined";
 import TagFacesIcon from "@mui/icons-material/TagFaces";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import profilePng from "../Assets/profile.png";
 import { useDispatch, useSelector } from "react-redux";
 import { clearError } from "../Reducers/user";
@@ -14,6 +14,7 @@ import toast from "react-hot-toast";
 const LoginSignup = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const location = useLocation();
 
   const [loginEmail, setLoginEmail] = useState("");
   const [loginPassword, setLoginPassword] = useState("");
@@ -30,19 +31,19 @@ const LoginSignup = () => {
 
   const { error, loading, isAuthenticated } = useSelector(
     (state) => state.user
-  );
+    );
+    
+const redirect = location.search? location.search.split("=")[1]: "account"
 
   useEffect(() => {
     if (error) {
       toast.error(error);
       dispatch(clearError());
     }
-
     if (isAuthenticated) {
-      navigate("/account");
+      navigate(`/${redirect}`);
     }
-    
-  }, [error, dispatch, navigate, isAuthenticated]);
+  }, [error, dispatch,location, navigate, isAuthenticated,redirect]);
 
   const loginSubmit = (e) => {
     e.preventDefault();
@@ -53,7 +54,7 @@ const LoginSignup = () => {
 
   const registerSubmit = (e) => {
     e.preventDefault();
-    dispatch(register(name,email,password,avatar));
+    dispatch(register(name, email, password, avatar));
   };
 
   const loginTab = useRef(null);
@@ -128,7 +129,12 @@ const LoginSignup = () => {
               />
             </div>
             <Link to={"/password/forgot"}>Fogot Password?</Link>
-            <input type="submit" value="Login" className="loginBtn" />
+            <input
+              type="submit"
+              value="Login"
+              style={{ backgroundColor: "#3a9dff" }}
+              className="loginBtn"
+            />
           </form>
 
           <form
@@ -180,7 +186,12 @@ const LoginSignup = () => {
               />
             </div>
 
-            <input type="submit" value="Register" className="SignUpBtn" />
+            <input
+              type="submit"
+              value="Register"
+              style={{ backgroundColor: "#3a9dff" }}
+              className="SignUpBtn"
+            />
           </form>
         </div>
       )}

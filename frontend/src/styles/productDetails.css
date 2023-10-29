@@ -135,7 +135,7 @@
 }
 .reviewsHeading{
   color: black;
-  font: 500 2vmax "Ubuntu";
+  font: 500 2vmax "DM Serif Display";
   text-align: center;
   border-bottom: 1px solid rgba(0, 0, 0, 0.205);
   padding: 1vmax;
@@ -163,7 +163,7 @@
   }
 
   .details-Block1 > h2 {
-    font-family: "Ubuntu", sans-serif;
+    font-family: "DM Serif Display", sans-serif;
     font-size: 4vmax;
   }
   .details-Block2 {

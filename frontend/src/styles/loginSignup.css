@@ -24,7 +24,7 @@
 }
 .login_signUp_toggle > p {
   color: rgba(0, 0, 0, 0.678);
-  font: 300 1.5vmax "Ubuntu";
+  font: 300 1.5vmax "DM Serif Display";
   transition: all 0.5s;
   cursor: pointer;
   /* display: grid;
@@ -136,6 +136,7 @@
   outline: none;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.278);
   cursor: pointer;
+    background-color: #3a9dff;
 }
 .loginBtn:hover,
 .SignUpBtn:hover {

@@ -5,12 +5,10 @@ import EmailOutlinedIcon from "@mui/icons-material/EmailOutlined";
 import { useDispatch, useSelector } from "react-redux";
 import { clearError } from "../Reducers/profile";
 import toast from "react-hot-toast";
-import { useNavigate } from "react-router-dom";
 import { forgotPassword } from "../Actions/user";
 
 const ForgotPassword = () => {
   const dispatch = useDispatch();
-  const navigate = useNavigate();
 
   const { error, loading } = useSelector((state) => state.profile);
 

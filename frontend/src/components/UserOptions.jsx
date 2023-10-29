@@ -89,7 +89,7 @@ const UserOptions = () => {
         open={open}
         onOpen={() => setOpen(!open)}
         onClose={() => setOpen(!open)}
-        direction="down"zz
+        direction="down"
         className="speedDial"
         icon={<MenuIcon />}
       >

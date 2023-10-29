@@ -36,7 +36,7 @@
 .profileContainer > div:first-child > a {
   border: none;
   background-color: #3a9dff;
-  font: 400 1.5vmax "Ubuntu";
+  font: 400 1.5vmax "DM Serif Display";
   color: white;
   text-decoration: none;
   padding: 0.6vmax 0.5vmax;
@@ -65,7 +65,7 @@
 
 .profileContainer > div:last-child > div > h4 {
   color: black;
-  font: 400 1.2vmax "Ubuntu";
+  font: 400 1.2vmax "DM Serif Display";
 }
 .profileContainer > div:last-child > div > p {
   color: rgba(0, 0, 0, 0.555);
@@ -100,7 +100,7 @@
     height: 43vh;
   }
   .profileContainer > div:first-child > a {
-    font: 400 1.7vmax "Ubuntu";
+    font: 400 1.7vmax "DM Serif Display";
     padding: 1vmax;
   }
   .profileContainer > div:last-child {
@@ -115,7 +115,7 @@
     margin: 0.5vmax 0;
   }
   .profileContainer > div:last-child > div:last-child > a {
-    font: 400 1.8vmax "Ubuntu";
+    font: 400 1.8vmax "DM Serif Display";
     padding: 1vmax;
     margin: 2vmax 0;
   }
