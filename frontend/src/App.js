@@ -5,7 +5,6 @@ import {
   Route
 } from "react-router-dom"
 import { useEffect, useState } from 'react';
-import { useSelector } from 'react-redux';
 import Home from './screens/Home';
 import ProductDetails from './screens/ProductDetails';
 import OrderSuccess from './screens/OrderSuccess';
@@ -16,10 +15,12 @@ import Search from './screens/Search';
 import Cart from './screens/Cart';
 import LoginSignup from './screens/LoginSignup';
 import UpdateProfile from './screens/UpdateProfile';
-import OrderSummary from './screens/OrderSummary.jsx';
+import OrderSummary from './screens/OrderSummary';
+import MyOrders from './screens/MyOrders';
 import Profile from './screens/Profile';
 import UpdatePassword from './screens/UpdatePassword';
-import Payment from './screens/Payment.jsx';
+import Payment from './screens/Payment';
+import OrderDetails from './screens/OrderDetails.jsx';
 import ForgotPassword from './screens/ForgotPassword';
 // import Footer from './components/Footer';
 import UserOptions from './components/UserOptions';
@@ -42,7 +43,7 @@ function App() {
     store.dispatch(loadUser())
     getStripeApiKey()
   }, [stripeApiKey])
-  const { isAuthenticated } = useSelector((state) => state.user)
+  
   return (
     <Router>
       <UserOptions />
@@ -58,13 +59,15 @@ function App() {
         <Route exact path="/password/reset/:token" element={<PasswordReset />} />
 
 
-        <Route element={<LoggedInUser isAuthenticated={isAuthenticated} />}>
+        <Route element={<LoggedInUser />}>
           <Route exact path="/account" element={<Profile />} />
           <Route exact path="/me/update" element={<UpdateProfile />} />
           <Route exact path="/password/update" element={<UpdatePassword />} />
           <Route exact path="/address" element={<Address />} />
-          <Route exact path="/order/summary" element={<OrderSummary />} />
+          <Route exact path="/order-summary" element={<OrderSummary />} />
           <Route exact path="/success" element={<OrderSuccess />} />
+          <Route exact path="/orders/me" element={<MyOrders />} />
+          <Route exact path="/order/:id" element={<OrderDetails />} />
           {stripeApiKey && (
             <Route exact path="/process/payment"
               element={

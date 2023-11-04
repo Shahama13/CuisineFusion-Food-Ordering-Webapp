@@ -2,6 +2,7 @@ import React from "react";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import CartItemCard from "../components/CartItemCard";
+import {ShoppingCartIcon} from "@heroicons/react/24/outline"
 
 const Cart = () => {
   const navigate = useNavigate();
@@ -23,7 +24,18 @@ const Cart = () => {
   return (
     <>
       {cartItems.length === 0 ? (
-        <div>Nothing here</div>
+        <div className="flex flex-col w-full h-[100vh] items-center justify-center">
+          <ShoppingCartIcon className="h-32 w-32 text-black mb-2" />
+          <h1 className="font-serif text-center text-2xl font-bold text-black">
+            YOUR CART IS EMPTY! SHOP NOW!
+          </h1>
+          <button
+            onClick={() => navigate("/products")}
+            className="font-serif p-2 px-9 text-white w-fit bg-black mt-5 hover:bg-gray-700"
+          >
+            SHOP NOW!
+          </button>
+        </div>
       ) : (
         <div className="flex flex-col  sm:flex-row p-2 sm:p-6 space-x-7 ">
           <div className="flex flex-col w-full md:w-2/3 ">
@@ -51,7 +63,7 @@ const Cart = () => {
             </h1>
             <div className=" px-2 mb-1 w-full flex justify-between">
               <div>Subtotal</div>
-              <div>subTotal</div>
+              <div>₹{subTotal}</div>
             </div>
             <div className="px-2 w-full mb-0 flex justify-between ">
               <div>
@@ -60,20 +72,19 @@ const Cart = () => {
                   (Free on orders above 999)
                 </span>
               </div>
-              <div>{shippingCharges}</div>
+              <div>₹{shippingCharges}</div>
             </div>
             <div className="px-2 w-full mb-0 flex justify-between ">
               <div>GST</div>
-              <div>{gst}</div>
+              <div>₹{gst}</div>
             </div>
             {/* <div className="px-2 mb-1 w-full mb-0 flex justify-between ">
               <div>Packaging</div>
               <div>50</div>
             </div> */}
-
             <div className="p-2 py-5 w-full flex justify-between border-y-1 border-gray-500">
               <div>Total</div>
-              <div>{total}</div>
+              <div>₹{total}</div>
             </div>
             <button
               onClick={checkoutHandler}

@@ -11,8 +11,8 @@ const productSlice = createSlice({
         allProductSuccess: (state, action) => {
             state.loading = false;
             state.products = action.payload.products;
-            state.resultPerPage= action.payload.resultPerPage;
-            state.filteredProductCount=action.payload.filteredProductCount;
+            state.resultPerPage = action.payload.resultPerPage;
+            state.filteredProductCount = action.payload.filteredProductCount;
             // state.productCount = action.payload.productCount;
         },
         allProductFailure: (state, action) => {
@@ -46,9 +46,35 @@ export const productDetailsSlice = createSlice({
     }
 })
 
+export const newReviewSlice = createSlice({
+    name: "review",
+    initialState: {},
+    reducers: {
+        reviewRequest: (state) => {
+            state.loading = true;
+        },
+        reviewSuccess: (state, action) => {
+            state.loading = false;
+            state.success = action.payload;
+        },
+        reviewFailure: (state, action) => {
+            state.loading = false;
+            state.error = action.payload;
+        },
+        reviewReset: (state) => {
+            state.loading = false;
+            state.success = false
+        },
+        clearReviewError: (state) => {
+            state.error = null;
+        },
+    }
+})
+
 
 export default productSlice.reducer;
 export const { allProductRequest, allProductSuccess, allProductFailure, clearErrors } = productSlice.actions;
 
-export const { productDetailsRequest, productDetailsSuccess, productDetailsFailure,clearError} = productDetailsSlice.actions
+export const { productDetailsRequest, productDetailsSuccess, productDetailsFailure, clearError } = productDetailsSlice.actions
 
+export const { reviewRequest, reviewSuccess, reviewFailure, reviewReset, clearReviewError } = newReviewSlice.actions

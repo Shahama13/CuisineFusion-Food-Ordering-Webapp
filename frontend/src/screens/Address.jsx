@@ -35,7 +35,7 @@ const Address = () => {
    await dispatch(saveShippingInfo({
       address,city,state,country,pinCode,phoneNo
     }))
-navigate("/order/summary")
+navigate("/order-summary")
   };
 
   return (

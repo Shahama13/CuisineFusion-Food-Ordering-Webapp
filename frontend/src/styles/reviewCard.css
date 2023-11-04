@@ -16,7 +16,7 @@ width: 10vmax;
     color: rgba(0, 0, 0, 0.836);
     font: 600 1vmax "Roboto";
 }
-.reviewCard>span{
+.reviewCardComm{
     color: rgba(0, 0, 0, 0.445);
     font: 200 1.2vmax "DM Serif Display";
 }

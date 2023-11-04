@@ -5,7 +5,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { getProductDetails } from "../Actions/product";
 import { useParams } from "react-router-dom";
 import ReviewCard from "../components/ReviewCard";
-import ReactStars from "react-rating-stars-component";
+import Rating from "@mui/material/Rating";
 import Loader from "../components/Loader";
 import { toast } from "react-hot-toast";
 import { clearError } from "../Reducers/product";
@@ -43,13 +43,10 @@ const ProductDetails = () => {
   }, [dispatch, params.id, error]);
 
   const options = {
-    edit: false,
-    count: 5,
-    size: 30,
-    // size: window.innerWidth < 670 ? 25 : 25,
-    isHalf: true,
+    size: "large",
     value: product?.ratings,
-    activeColor: "#3a9dff",
+    readOnly: true,
+    precision:0.5
   };
   return (
     <>
@@ -77,7 +74,7 @@ const ProductDetails = () => {
                 <p> Product {product?._id}</p>
               </div>
               <div className="details-Block2">
-                <ReactStars {...options} />
+                <Rating {...options} />
                 <span>({product?.numOfReviews} reviews)</span>
                 {/* <span>({product?.ratings} reviews)</span> */}
               </div>

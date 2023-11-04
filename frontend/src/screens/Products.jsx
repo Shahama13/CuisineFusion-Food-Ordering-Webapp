@@ -60,7 +60,7 @@ const Products = () => {
               <Slider
                 value={price}
                 onChange={priceHandler}
-                aria-label="Price"
+                getAriaLabel="Price"
                 valueLabelDisplay="on"
                 sx={{
                   "& .css-nnid7-MuiSlider-valueLabel": {

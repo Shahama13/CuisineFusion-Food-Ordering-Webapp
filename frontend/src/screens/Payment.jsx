@@ -88,6 +88,7 @@ const Payment = () => {
           };
           dispatch(createOrder(order))
           navigate("/success");
+          
         } else {
           toast.error("Some issue while processing payment");
         }
