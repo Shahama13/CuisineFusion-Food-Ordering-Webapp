@@ -3,6 +3,7 @@ import validator from "validator"
 import bcrypt from "bcryptjs"
 import jwt from "jsonwebtoken"
 import crypto from "crypto"
+import { type } from "os"
 
 const userSchema = new mongoose.Schema({
     name: {
@@ -11,6 +12,12 @@ const userSchema = new mongoose.Schema({
         maxLength: [30, "Name cannot exceed 30 characters"],
         minLength: [4, "Name should have more than 4 characters"]
     },
+    wishlist: [
+        {
+            type: mongoose.Schema.ObjectId,
+            ref: "Product"
+        }
+    ],
     email: {
         type: String,
         validate: [validator.isEmail, "Please enter a valid email"],
@@ -59,7 +66,7 @@ userSchema.methods.comparePassword = async function (password) {
 }
 
 userSchema.methods.getResetPasswordToken = function () {
-    
+
     const resetToken = crypto.randomBytes(20).toString("hex");
 
     // Hashing and adding to userSchema

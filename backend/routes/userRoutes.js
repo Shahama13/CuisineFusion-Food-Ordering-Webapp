@@ -1,5 +1,5 @@
 import express from "express";
-import { deleteUser, forgotPassword, getAllUser, getSingleUser, getUserDetails, loginUser, logoutUser, registerUser, resetPassword, updateProfile, updateUserRole, updatepassword } from "../controllers/userController.js";
+import { addRemoveFromWishlist, deleteUser, forgotPassword, getAllUser, getMyWishlist, getSingleUser, getUserDetails, loginUser, logoutUser, registerUser, resetPassword, updateProfile, updateUserRole, updatepassword } from "../controllers/userController.js";
 import isAuthenticatedUser, { authorizedRoles } from "../middlewares/auth.js"
 
 const router = express.Router();
@@ -15,6 +15,9 @@ router.route("/password/reset/:token").put(resetPassword)
 router.get("/me", isAuthenticatedUser, getUserDetails)
 router.put("/password/update", isAuthenticatedUser, updatepassword)
 router.put("/update/me", isAuthenticatedUser, updateProfile)
+
+router.get("/wishlist",isAuthenticatedUser, getMyWishlist)
+router.post("/add-wishlist",isAuthenticatedUser, addRemoveFromWishlist)
 
 router.route("/admin/users").get(isAuthenticatedUser, authorizedRoles, getAllUser)
 router.route("/admin/user/:id")

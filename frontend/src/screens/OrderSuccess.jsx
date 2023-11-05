@@ -18,7 +18,7 @@ const OrderSuccess = () => {
           YOUR ORDER HAS BEEN PLACED SUCCESFULLY!
         </h1>
         <button
-          onClick={() => navigate("/orders/me")}
+          onClick={() => navigate("/orders")}
           className="font-serif p-2 px-9 text-white w-fit bg-black mt-5 hover:bg-gray-700"
         >
           VIEW ORDERS

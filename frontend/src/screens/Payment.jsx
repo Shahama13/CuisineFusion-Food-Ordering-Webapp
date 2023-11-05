@@ -1,49 +1,31 @@
-import React, { useEffect, useRef } from "react";
+import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import toast from "react-hot-toast";
 import CheckoutSteps from "../components/CheckoutSteps";
-// import { loadStripe } from "@stripe/stripe-js";
-import {
-  CardNumberElement,
-  CardCvcElement,
-  CardExpiryElement,
-  useStripe,
-  useElements,
-} from "@stripe/react-stripe-js";
+import { HmacSHA256 } from "crypto-js";
 import axios from "axios";
-import {
-  CreditCardIcon,
-  CalendarIcon,
-  KeyIcon,
-} from "@heroicons/react/24/solid";
 import { useNavigate } from "react-router-dom";
 import { clearErrors } from "../Reducers/order";
 import { createOrder } from "../Actions/order";
 
 const Payment = () => {
-
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const stripe = useStripe();
-  const elements = useElements();
-  const payBtn = useRef(null);
 
   const orderInfo = JSON.parse(sessionStorage.getItem("orderInfo"));
   const { cartItems, shippingInfo } = useSelector((state) => state.cart);
   const { user } = useSelector((state) => state.user);
   const { error } = useSelector((state) => state.order);
 
-  const paymentData = {
-    amount: Math.round(orderInfo.total * 100),
-  };
+  const [show, setShow] = useState(false);
 
-  const order = {
+  const orderr = {
     shippingInfo,
     orderItems: cartItems,
     itemsPrice: orderInfo.subTotal,
     taxPrice: orderInfo.gst,
     shippingPrice: orderInfo.shippingCharges,
-    totalPrice:orderInfo.total,
+    totalPrice: orderInfo.total,
   };
 
   useEffect(() => {
@@ -51,80 +33,84 @@ const Payment = () => {
       toast.error(error);
       dispatch(clearErrors());
     }
+    checkoutHandler();
   }, [error, dispatch]);
 
-  const submitHandler = async (e) => {
-    e.preventDefault();
-    payBtn.current.disabled = true;
-    try {
-      const { data } = await axios.post("/api/v1/payment/process", paymentData);
-      const client_secret = data.client_secret;
+  const checkoutHandler = async () => {
+    const {
+      data: { key, secret },
+    } = await axios.get("/api/v1/get-key");
+    const {
+      data: { order },
+    } = await axios.post("/api/v1/checkout", {
+      amount: orderInfo.total,
+    });
+    const options = {
+      key,
+      amount: order.amount,
+      currency: "INR",
+      name: "Fabizo",
+      description: "Online Transaction",
 
-      if (!stripe || !elements) return;
-      const result = await stripe.confirmCardPayment(client_secret, {
-        payment_method: {
-          card: elements.getElement(CardNumberElement),
-          billing_details: {
-            name: user.name,
-            email: user.email,
-            address: {
-              line1: shippingInfo.address,
-              city: shippingInfo.city,
-              state: shippingInfo.state,
-              postal_code: shippingInfo.pinCode,
-              country: shippingInfo.country,
-            },
-          },
-        },
-      });
-      if (result.error) {
-        payBtn.current.disabled = false;
-        toast.error(result.error.message);
-      } else {
-        if (result.paymentIntent.status === "succeeded") {
-          order.paymentInfo = {
-            id: result.paymentIntent.id,
-            status: result.paymentIntent.status,
+      order_id: order.id,
+
+      handler: function (response) {
+        alert("SIGNATURE" + response.razorpay_signature);
+        const body =
+          response.razorpay_order_id + "|" + response.razorpay_payment_id;
+
+        const expected_signature = HmacSHA256(
+          body,
+          secret,
+        ).toString();
+
+        const isAuthentic = expected_signature === response.razorpay_signature;
+        if (isAuthentic) {
+          orderr.paymentInfo = {
+            razorpay_order_id: response.razorpay_order_id,
+            razorpay_payment_id: response.razorpay_payment_id,
+            razorpay_signature: response.razorpay_signature,
+            status: "Succeeded",
           };
-          dispatch(createOrder(order))
+          setShow(false);
+          dispatch(createOrder(orderr));
           navigate("/success");
-          
         } else {
-          toast.error("Some issue while processing payment");
+          return;
         }
-      }
-    } catch (error) {
-      payBtn.current.disabled = false;
-      toast.error(error.response.data.message);
-    }
+      },
+      prefill: {
+        name: user.name,
+        email: user.email,
+        contact: shippingInfo.phoneNo,
+      },
+      notes: {
+        address: "Razorpay Corporate Office",
+      },
+      theme: {
+        color: "#000000",
+      },
+    };
+    const razor = new window.Razorpay(options);
+    razor.on("payment.failed", function (response) {
+      setShow(true);
+    });
+
+    razor.open();
   };
 
   return (
+
     <>
       <CheckoutSteps activeStep={2} />
-      <div className="flex flex-col w-full h-full items-center mt-6">
-        <form onSubmit={submitHandler} className="w-[80%] sm:w-[60%] md:w-1/3">
-          <div className="flex mb-3">
-            <CreditCardIcon class="h-6 w-6 text-black absolute mt-4 ml-2  " />
-            <CardNumberElement className="border-1 w-full border-black pl-9 py-4 font-sans" />
-          </div>
-          <div className="flex mb-3">
-            <CalendarIcon class="h-6 w-6 text-black absolute mt-4 ml-2  " />
-            <CardExpiryElement className="border-1 w-full border-black pl-9 py-4" />
-          </div>
-          <div className="flex mb-3">
-            <KeyIcon class="h-6 w-6 text-black absolute mt-4 ml-2  " />
-            <CardCvcElement className="border-1 w-full border-black pl-9 py-4" />
-          </div>
-          <button
-            className="font-serif p-2 w-full text-white bg-black mt-5 hover:bg-gray-700"
-            type="submit"
-            ref={payBtn}
-          >
-            {`Pay  ₹${orderInfo && orderInfo.total}`}
-          </button>
-        </form>
-      </div>
+      {show && (
+        <div className="flex flex-col w-full  items-center mt-24 ">
+          <p className="font-serif m-3 text-black text-2xl">
+            Payment Cancelled!
+          </p>
+          <button className="bg-black px-12 py-2 text-white">Retry</button>
+        </div>
+      )}
     </>
   );
 };

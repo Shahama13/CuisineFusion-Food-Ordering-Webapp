@@ -1,27 +1,24 @@
 import { catchAsyncError } from "../middlewares/catchAsyncError.js"
-import stripe from "stripe";
-const stripeInstance = stripe(process.env.STRIPE_SECRET_KEY);
+import { instance } from "../server.js";
 
-
-export const processPayment =catchAsyncError( async(req,res,next)=>{
-    const myPayment = await stripeInstance.paymentIntents.create({
-        amount:req.body.amount,
-        currency:"inr",
-        metadata:{
-            company:"Ecommerce"
-        }
+export const checkout = catchAsyncError(async (req, res) => {
+    const options = {
+        amount: Number(req.body.amount * 100),  // amount in the smallest currency unit
+        currency: "INR",
+    };
+    const order = await instance.orders.create(options)
+    res.status(200).json({
+        success: true,
+        order
     })
 
+})
+
+export const getKey = catchAsyncError(async (req, res) => {
     res.status(200).json({
-        success:true,
-        client_secret: myPayment.client_secret
+        key: process.env.RAZORPAY_API_KEY,
+        secret: process.env.RAZORPAY_API_SECRET,
     })
 })
 
-export const sendStripeApiKey = catchAsyncError(async(req,res,next)=>{
-   
-    res.status(200).json({
-        stripeApiKey: process.env.STRIPE_API_KEY,
-    })
-})
 

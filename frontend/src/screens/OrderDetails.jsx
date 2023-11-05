@@ -5,7 +5,6 @@ import { Link, useParams } from "react-router-dom";
 import Loader from "../components/Loader";
 import toast from "react-hot-toast";
 import { clearErrors } from "../Reducers/order";
-import DialogTitle from "@mui/material/DialogTitle";
 import Dialog from "@mui/material/Dialog";
 import DialogActions from "@mui/material/DialogActions";
 import DialogContent from "@mui/material/DialogContent";
@@ -20,6 +19,7 @@ const OrderDetails = () => {
   const [open, setOpen] = useState(false);
   const [rating, setRating] = useState(0);
   const [comment, setComment] = useState("");
+  const [id, setId] = useState("");
 
   const { orderDetails, orderLoading, error } = useSelector(
     (state) => state.order
@@ -76,6 +76,8 @@ const OrderDetails = () => {
                       className="mt-2 bg-black text-white py-1 px-4 hover:bg-gray-600"
                       onClick={() => {
                         setOpen(true);
+                        console.log(item.product);
+                        setId(item.product);
                       }}
                     >
                       Review
@@ -86,6 +88,9 @@ const OrderDetails = () => {
                     open={open}
                     onClose={() => {
                       setOpen((prev) => !prev);
+                      setId("");
+                      setComment("");
+                      setRating(0);
                     }}
                     aria-labelledby="simple-dialog-title"
                   >
@@ -114,8 +119,9 @@ const OrderDetails = () => {
                       <button
                         onClick={() => {
                           setOpen(false);
-                          setRating(0)
-                          setComment("")
+                          setRating(0);
+                          setComment("");
+                          setId("");
                         }}
                         className="text-red-600 bg-gray-100 py-1 px-2 mr-2"
                       >
@@ -123,13 +129,13 @@ const OrderDetails = () => {
                       </button>
                       <button
                         className="text-black bg-gray-100 py-1 px-2 mr-4"
-                        onClick={() => {
-                          dispatch(addReview(rating, comment, item.product));
+                        onClick={async () => {
+                          await dispatch(addReview(rating, comment, id));
+                          console.log(rating, comment, id);
                           setOpen(false);
-                          setRating(0)
-                          setComment("")
+                          setRating(0);
+                          setComment("");
                         }}
-                       
                         disabled={rating === 0 || !comment}
                       >
                         Submit
@@ -155,7 +161,7 @@ const OrderDetails = () => {
           <div>
             <div className="flex items-center justify-between">
               <p>Id</p>
-              <p>{orderDetails.paymentInfo.id}</p>
+              <p>{orderDetails.paymentInfo.razorpay_order_id}</p>
             </div>
             <div className="flex items-center justify-between">
               <p>Paid at</p>

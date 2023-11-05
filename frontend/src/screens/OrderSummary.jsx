@@ -38,7 +38,6 @@ const OrderSummary = () => {
   return (
     <>
       <CheckoutSteps activeStep={1} />
-      {/* <h2 className="font-serif text-2xl my-4 text-center">Order Summary</h2> */}
       <div className="flex flex-col md:flex-row  w-full h-full  p-2 sm:p-6 space-x-7">
         <div className="w-1/2">
           <div className="bg-gray-100 px-3 py-2 mb-4">

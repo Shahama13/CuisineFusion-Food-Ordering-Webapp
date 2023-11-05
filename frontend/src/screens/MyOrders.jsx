@@ -39,7 +39,7 @@ const MyOrders = () => {
           >
             <div>
               <p>
-                {item.paymentInfo.status === "succeeded" ? (
+               
                   <div className="flex items-centermb-1 ">
                     <CheckBadgeIcon className="h-5 w-5 text-black mr-2" />
                     <p className="text-sm text-black ">
@@ -47,9 +47,7 @@ const MyOrders = () => {
                       Prepaid
                     </p>
                   </div>
-                ) : (
-                  <p>Payment Failed</p>
-                )}
+              
                 <p
                   className={`mb-2 text-sm ${
                     item.orderStatus === "Delivered" ? "font-bold" : ""

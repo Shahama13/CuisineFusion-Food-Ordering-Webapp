@@ -1,9 +1,9 @@
 import express from "express"
 const router = express.Router();
 import isAuthenticatedUser from "../middlewares/auth.js"
-import { processPayment, sendStripeApiKey } from "../controllers/paymentController.js";
+import { checkout, getKey} from "../controllers/paymentController.js";
 
-router.route("/payment/process").post(isAuthenticatedUser,processPayment)
-router.route("/stripe-api-key").get(isAuthenticatedUser,sendStripeApiKey)
+router.route("/checkout").post(isAuthenticatedUser,checkout)
+router.route("/get-key").get(isAuthenticatedUser,getKey)
 
 export default router;

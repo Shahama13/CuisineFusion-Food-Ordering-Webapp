@@ -134,7 +134,7 @@ export const updatepassword = catchAsyncError(async (req, res, next) => {
 export const updateProfile = catchAsyncError(async (req, res, next) => {
 
     const { name, email, avatar } = req.body;
-   
+
     let newUser = {};
     if (name) {
         newUser.name = name
@@ -145,37 +145,37 @@ export const updateProfile = catchAsyncError(async (req, res, next) => {
     if (avatar) {
 
         const prevUser = await User.findById(req.user._id)
-        if (prevUser.avatar.length>0) {
+        if (prevUser.avatar.length > 0) {
             await cloudinary.v2.uploader.destroy(prevUser.avatar.public_id)
         }
 
-       else {
-        const myCloud = await cloudinary.v2.uploader.upload(req.body.avatar, {
-            folder: "avatar",
-            width: 150,
-            crop: "scale",
-        })
+        else {
+            const myCloud = await cloudinary.v2.uploader.upload(req.body.avatar, {
+                folder: "avatar",
+                width: 150,
+                crop: "scale",
+            })
 
-        newUser.avatar = {
-            public_id: myCloud.public_id,
-            url: myCloud.secure_url
+            newUser.avatar = {
+                public_id: myCloud.public_id,
+                url: myCloud.secure_url
+            }
         }
-    }
 
-}
+    }
 
 
 
     // TO Do Cloudinary
     await User.findByIdAndUpdate(req.user._id, newUser, {
-    new: true,
-    runValidators: true,
-    useFindAndModify: true,
-})
+        new: true,
+        runValidators: true,
+        useFindAndModify: true,
+    })
     res.status(200).json({
-    success: true,
-    message: "Profile updated"
-})
+        success: true,
+        message: "Profile updated"
+    })
 })
 
 // Get users - A
@@ -237,3 +237,34 @@ export const deleteUser = catchAsyncError(async (req, res, next) => {
     })
 
 })
+
+// Add/Remove from wishlist
+export const addRemoveFromWishlist = catchAsyncError(async (req, res, next) => {
+    const user = await User.findById(req.user._id)
+    if (user.wishlist.includes(req.body.productId)) {
+        const index = user.wishlist.indexOf(req.body.productId)
+        user.wishlist.splice(index, 1)
+        await user.save()
+        res.status(200).json({
+            success: true,
+            message: "Item removed from wishlist"
+        })
+    }
+    else {
+        user.wishlist.push(req.body.productId)
+        await user.save()
+        res.status(200).json({
+            success: true,
+            message: "Item added to wishlist"
+        })
+    }
+})
+
+// get all wishlist products
+export const getMyWishlist = (catchAsyncError(async (req, res, next) => {
+    const user = await User.findById(req.user._id).populate("wishlist")
+    res.status(200).json({
+        success: true,
+        wishlist: user.wishlist
+    })
+}))

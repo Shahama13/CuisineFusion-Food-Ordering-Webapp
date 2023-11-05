@@ -4,7 +4,7 @@ import {
   Routes,
   Route
 } from "react-router-dom"
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import Home from './screens/Home';
 import ProductDetails from './screens/ProductDetails';
 import OrderSuccess from './screens/OrderSuccess';
@@ -27,23 +27,15 @@ import UserOptions from './components/UserOptions';
 import store from "./store"
 import { loadUser } from './Actions/user';
 import LoggedInUser from './protectedRoutes/LoggedInUser';
-import axios from 'axios';
-import { loadStripe } from "@stripe/stripe-js";
-import { Elements } from "@stripe/react-stripe-js";
+
 
 
 function App() {
-  const [stripeApiKey, setStripeApiKey] = useState("")
-  async function getStripeApiKey() {
-    const { data } = await axios.get("/api/v1/stripe-api-key")
-    setStripeApiKey(data.stripeApiKey)
-  }
-  useEffect(() => {
-    console.log(stripeApiKey)
-    store.dispatch(loadUser())
-    getStripeApiKey()
-  }, [stripeApiKey])
   
+  useEffect(() => {
+    store.dispatch(loadUser())  
+  }, [])
+
   return (
     <Router>
       <UserOptions />
@@ -66,17 +58,9 @@ function App() {
           <Route exact path="/address" element={<Address />} />
           <Route exact path="/order-summary" element={<OrderSummary />} />
           <Route exact path="/success" element={<OrderSuccess />} />
-          <Route exact path="/orders/me" element={<MyOrders />} />
+          <Route exact path="/orders" element={<MyOrders />} />
           <Route exact path="/order/:id" element={<OrderDetails />} />
-          {stripeApiKey && (
-            <Route exact path="/process/payment"
-              element={
-                <Elements stripe={loadStripe(stripeApiKey)}>
-                  <Payment />
-                </Elements>
-              }
-            />
-          )}
+          <Route exact path="/process/payment" element={<Payment />} />
         </Route>
 
 
