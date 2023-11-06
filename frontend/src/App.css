@@ -6,6 +6,7 @@
   padding: 0;
   font-family: 'Quicksand', serif;
   scroll-behavior: smooth;
+  box-sizing: border-box;
 }
 
 input::-webkit-inner-spin-button,

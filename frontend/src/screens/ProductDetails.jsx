@@ -1,6 +1,4 @@
 import React, { useEffect, useState } from "react";
-import Carousel from "react-material-ui-carousel";
-import "../styles/productDetails.css";
 import { useDispatch, useSelector } from "react-redux";
 import { getProductDetails } from "../Actions/product";
 import { useParams } from "react-router-dom";
@@ -8,22 +6,24 @@ import ReviewCard from "../components/ReviewCard";
 import Rating from "@mui/material/Rating";
 import Loader from "../components/Loader";
 import { toast } from "react-hot-toast";
+import { HeartIcon } from "@heroicons/react/24/outline";
+import { HeartIcon as HeartOutline } from "@heroicons/react/24/solid";
 import { clearError } from "../Reducers/product";
-import MetaData from "../MetaData";
-import {addItemsToCart} from "../Actions/cart"
+import { addItemsToCart } from "../Actions/cart";
 
 const ProductDetails = () => {
   const dispatch = useDispatch();
+  const [heart, setHeart] = useState(false);
   const [quantity, setQuantity] = useState(1);
   const params = useParams();
   const { product, loading, error } = useSelector(
     (state) => state.productDetails
   );
 
-  const addtoCartHandler = async() => {
-   await dispatch(addItemsToCart(params.id,quantity))
-   toast.success("Item added to cart")
-    setQuantity(1)
+  const addtoCartHandler = async () => {
+    await dispatch(addItemsToCart(params.id, quantity));
+    toast.success("Item added to cart");
+    setQuantity(1);
   };
   const increaseQuantity = () => {
     setQuantity((prev) => prev + 1);
@@ -42,11 +42,14 @@ const ProductDetails = () => {
     }
   }, [dispatch, params.id, error]);
 
+  const toggleHeart = (e) => {
+    setHeart((prev) => !prev);
+  };
   const options = {
     size: "large",
     value: product?.ratings,
     readOnly: true,
-    precision:0.5
+    precision: 0.5,
   };
   return (
     <>
@@ -54,58 +57,107 @@ const ProductDetails = () => {
         <Loader />
       ) : (
         <>
-          <MetaData title="Item Details" />
-          <div className="productDetails">
-            <div className="carousel-container">
-              <Carousel animation="fade">
-                {product?.images?.map((item, i) => (
-                  <img
-                    className="carousel-image"
-                    key={item.url}
-                    src={item.url}
-                    alt={`${i}slide`}
-                  />
-                ))}
-              </Carousel>
+          <div className=" flex flex-row items-start justify-stretch mb-6 flex-wrap">
+            <div className="flex flex-row">
+              {product?.images?.map((item, i) => (
+                <img
+                  className=" h-[460px]"
+                  key={item.url}
+                  src={item.url}
+                  alt={`${i}slide`}
+                />
+              ))}
+              {product?.images?.map((item, i) => (
+                <img
+                  className=" h-[460px]"
+                  key={item.url}
+                  src={item.url}
+                  alt={`${i}slide`}
+                />
+              ))}
             </div>
-            <div>
-              <div className="details-Block1">
-                <h2>{product?.name}</h2>
-                <p> Product {product?._id}</p>
+            <div className="ml-4 sm:ml-8 mt-6 ">
+              <h2 className="font-serif text-2xl md:text-4xl mb-4 ">
+                {product?.name.toUpperCase()}
+              </h2>
+              <div className="flex items-center space-x-1 mb-4 ">
+                <Rating
+                  {...options}
+                  style={{ color: "black" }}
+                  size={window.innerWidth > 400 ? "large" : "small"}
+                />
+                <span className="text-gray-600 text-sm">
+                  ({product?.numOfReviews} reviews)
+                </span>
               </div>
-              <div className="details-Block2">
-                <Rating {...options} />
-                <span>({product?.numOfReviews} reviews)</span>
-                {/* <span>({product?.ratings} reviews)</span> */}
+              <div className="flex items-center space-x-1 mb-3">
+                <h1 className="font-sans text-xl">{`MRP ₹${product?.price}`}</h1>
+                <p className="text-gray-600 text-sm mt-1">
+                  (Inclusive of all taxes)
+                </p>
               </div>
-              <div className="details-Block3">
-                <h1> {`₹${product?.price}`}</h1>
-                <div className="details-Block3-1">
-                  <div className="details-Block3-1-1">
-                    <button onClick={decreaseQuantity}>-</button>
-                    <input readOnly type="number" value={quantity} />
-                    <button onClick={increaseQuantity}>+</button>
-                  </div>
-                  <button onClick={addtoCartHandler}>Add To Cart</button>
-                </div>
+              <p className="text-sm text-gray-600 mb-6">
+                {product?.description}
+              </p>
+
+              <div className="flex items-center h-9 mb-4 justify-center border-1 border-gray-600 w-[120px]">
+                <button
+                  onClick={decreaseQuantity}
+                  className="px-[15px]  hover:scale-110 hover:bg-slate-100 py-1 border-r-1 border-gray-600"
+                >
+                  –
+                </button>
+                <div className="px-[15px] py-1">{quantity}</div>
+                <button
+                  className="px-[15px] hover:scale-110 hover:bg-slate-100
+                py-1 border-l-1 border-gray-600"
+                  onClick={increaseQuantity}
+                >
+                  +
+                </button>
               </div>
-              <div className="details-Block4">
-                Description:<p>{product?.description}</p>
+
+              <div className="flex items-center space-x-1 mb-3">
+                <button
+                  onClick={addtoCartHandler}
+                  className="px-10 bg-black hover:bg-gray-700 text-sm font-serif text-white mr-4 py-4 rounded-md text-center "
+                >
+                  ADD TO CART
+                </button>
+
+                {heart ? (
+                  <HeartOutline
+                    className="h-9 w-9 text-red-500"
+                    onClick={toggleHeart}
+                  />
+                ) : (
+                  <HeartIcon
+                    className="h-6 w-6 text-black"
+                    onClick={toggleHeart}
+                  />
+                )}
               </div>
-              <button className="submitReview">Submit Review</button>
             </div>
           </div>
 
-          <h3 className="reviewsHeading"> Reviews</h3>
-          {product?.reviews && product?.reviews[0] ? (
-            <div className="reviews">
-              {product?.reviews?.map((review) => (
-                <ReviewCard review={review} />
-              ))}
-            </div>
-          ) : (
-            <p className="noReviews">No Reviews Yet</p>
-          )}
+          <div className="bg-slate-100 mb-6">
+            {product?.reviews && product?.reviews[0] && (
+              <h6 className="text-xl text-slate-800 font-serif text-start ml-4 p-2">
+                REVIEWS
+              </h6>
+            )}
+            {product?.reviews && product?.reviews[0] ? (
+              <div className="flex flex-row flex-wrap items-center justify-start">
+                {product?.reviews?.map((review) => (
+                  <ReviewCard review={review} />
+                ))}
+              </div>
+            ) : (
+              <h6 className="text-xl text-slate-800 font-serif text-start ml-4 p-2">
+                NO REVIEWS YET
+              </h6>
+            )}
+          </div>
         </>
       )}
     </>

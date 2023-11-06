@@ -12,7 +12,7 @@
 }
 .banner ::before {
   content: "";
-  background-image: url("../Assets/try.jpeg");
+  background-image: url("../Assets/newarrival.png");
   background-repeat: no-repeat;
   background-position: center center;
   background-size: cover;

@@ -55,7 +55,6 @@ const Payment = () => {
       order_id: order.id,
 
       handler: function (response) {
-        alert("SIGNATURE" + response.razorpay_signature);
         const body =
           response.razorpay_order_id + "|" + response.razorpay_payment_id;
 

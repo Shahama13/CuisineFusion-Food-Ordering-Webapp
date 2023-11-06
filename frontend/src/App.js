@@ -27,6 +27,7 @@ import UserOptions from './components/UserOptions';
 import store from "./store"
 import { loadUser } from './Actions/user';
 import LoggedInUser from './protectedRoutes/LoggedInUser';
+import Header from './components/Header.jsx';
 
 
 
@@ -38,7 +39,8 @@ function App() {
 
   return (
     <Router>
-      <UserOptions />
+      {/* <UserOptions /> */}
+      <Header/>
       <Routes>
         <Route exact path="/" element={<Home />} />
         <Route exact path="/product/:id" element={<ProductDetails />} />

@@ -1,7 +1,6 @@
 import React from "react";
-import "../styles/reviewCard.css";
-import profilePng from "../Assets/profile.png";
 import Rating from "@mui/material/Rating";
+import { UserCircleIcon } from "@heroicons/react/24/solid";
 
 const ReviewCard = ({ review }) => {
   const options = {
@@ -10,12 +9,15 @@ const ReviewCard = ({ review }) => {
     readOnly: true,
     precision: 0.5,
   };
+
   return (
-    <div className="reviewCard">
-      <img src={profilePng} alt="User" />
-      <p>{review.name}</p>
-      <Rating {...options} />
-      <span className="reviewCardComm">{review.comment}</span>
+    <div className="flex flex-row items-center space-x-3 py-4 pl-2 pr-10 w-fit rounded-md m-2">
+      <UserCircleIcon className="h-16 w-16 text-gray-200" />
+      <div>
+        <p className="text-sm text-gray-600">{review.name}</p>
+        <Rating {...options} style={{ color: "black", marginBottom: "0px" }} />
+        <p className="text-gray-800 -mt-3">{review.comment}</p>
+      </div>
     </div>
   );
 };
