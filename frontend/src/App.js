@@ -22,8 +22,6 @@ import UpdatePassword from './screens/UpdatePassword';
 import Payment from './screens/Payment';
 import OrderDetails from './screens/OrderDetails.jsx';
 import ForgotPassword from './screens/ForgotPassword';
-// import Footer from './components/Footer';
-import UserOptions from './components/UserOptions';
 import store from "./store"
 import { loadUser } from './Actions/user';
 import LoggedInUser from './protectedRoutes/LoggedInUser';
@@ -39,7 +37,6 @@ function App() {
 
   return (
     <Router>
-      {/* <UserOptions /> */}
       <Header/>
       <Routes>
         <Route exact path="/" element={<Home />} />
@@ -67,7 +64,6 @@ function App() {
 
 
       </Routes>
-      {/* <Footer /> */}
     </Router>
   );
 }

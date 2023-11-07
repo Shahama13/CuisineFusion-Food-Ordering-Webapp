@@ -144,10 +144,10 @@ const Header = () => {
         </div>
       ) : (
         <div className="bg-white flex flex-col sm:flex-row items-center sm:items-start justify-between p-0">
-          <div className=" text-black writing-vertical text-upright sm:-mt-6 p-0 font-serif sm:text-[100px] text-4xl sm:m-7 m-4 text-center sm:-mb-4">
+          <div className=" text-black writing-vertical text-upright p-0 font-serif sm:text-[100px] text-4xl text-center sm:m-7 sm:mt-6 m-6 sm:mb-4">
             FABIZO
           </div>
-          <div className="flex sm:mt-5 mt-0 mb-4 sm:mb-0 items-center justify-center">
+          <div className="flex sm:mt-5 mt-0 mb-0 sm:mb-0 items-center justify-center">
             <Tooltip title={"Search"}>
               <IconButton>
                 <MagnifyingGlassIcon

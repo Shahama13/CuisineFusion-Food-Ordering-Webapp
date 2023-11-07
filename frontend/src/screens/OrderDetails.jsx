@@ -47,26 +47,26 @@ const OrderDetails = () => {
   ) : (
     orderDetails.orderItems && (
       <div className="p-0 md:px-6">
-        <h1 className="font-serif text-center text-2xl font-bold my-4 text-black">
+        <h1 className="font-serif text-center text-xl sm:text-2xl font-bold mt-4 text-slate-700">
           ORDER DETAILS
         </h1>
         <div className=" bg-gray-100 mx-2 pb-2 my-3">
-          <h3 className="font-serif text-start px-4 pt-3 text-xl">
+          <h3 className="font-serif text-start px-4 pt-3  text-lg md:text-xl text-slate-600">
             ORDER ITEMS
           </h3>
           {orderDetails.orderItems &&
             orderDetails.orderItems.map((item) => (
               <div className=" flex mb-2 py-2 px-4">
                 <div>
-                  <img src={item.image} alt={item.name} className="h-32 w-32" />
+                  <img src={item.image} alt={item.name} className="h-32 md:w-32 w-20" />
                 </div>
-                <div className="ml-4">
+                <div className="sm:ml-4 ml-2">
                   <Link to={`/product/${item.product}`} className="font-serif ">
                     {item.name}
                   </Link>
-                  <p className="my-2">
+                  <p className="my-2 text-[10px] sm:text-base ">
                     {item.price} X{" "}
-                    <span className="border-1 border-black px-2 py-1 m-2">
+                    <span className="border-1 border-black md:px-2 py-1 md:m-2 m-1 px-1 text-[10px] sm:text-base ">
                       {item.quantity}
                     </span>
                     = ₹{item.price * item.quantity}
@@ -84,7 +84,6 @@ const OrderDetails = () => {
                     </button>
                   )}
                   <Dialog
-                    // className="w-6/12"
                     open={open}
                     onClose={() => {
                       setOpen((prev) => !prev);
@@ -147,27 +146,37 @@ const OrderDetails = () => {
             ))}
         </div>
         <div className=" bg-gray-100 mx-2 p-2 flex items-center justify-between my-3">
-          <h3 className="font-serif text-start  text-xl">ORDER STATUS</h3>
-          <span>{orderDetails.orderStatus}</span>
+          <h3 className="font-serif text-start text-lg md:text-xl text-slate-600">
+            ORDER STATUS
+          </h3>
+          <span className="text-[10px] sm:text-base ">
+            {orderDetails.orderStatus}
+          </span>
         </div>
 
         <div className=" bg-gray-100 mx-2 p-2 flex items-center justify-between my-3">
-          <h3 className="font-serif text-start  text-xl">ORDERED ON</h3>
-          <p>{orderDetails.createdAt.slice(0, 10)}</p>
+          <h3 className="font-serif text-start text-lg md:text-xl text-slate-600">
+            ORDERED ON
+          </h3>
+          <p className="text-[10px] sm:text-base ">
+            {orderDetails.createdAt.slice(0, 10)}
+          </p>
         </div>
 
         <div className=" bg-gray-100 mx-2 p-2 my-3">
-          <h3 className="font-serif text-start mb-2  text-xl">PAYMENT INFO</h3>
+          <h3 className="font-serif text-start mb-2 text-lg md:text-xl text-slate-600">
+            PAYMENT INFO
+          </h3>
           <div>
-            <div className="flex items-center justify-between">
+            <div className="flex items-center justify-between text-[10px] sm:text-base ">
               <p>Id</p>
               <p>{orderDetails.paymentInfo.razorpay_order_id}</p>
             </div>
-            <div className="flex items-center justify-between">
+            <div className="flex items-center justify-between text-[10px] sm:text-base ">
               <p>Paid at</p>
               <p>{orderDetails.paidAt.slice(0, 10)}</p>
             </div>
-            <div className="flex items-center justify-between">
+            <div className="flex items-center justify-between text-[10px] sm:text-base ">
               <p>Status</p>
               <p>{orderDetails.paymentInfo.status}</p>
             </div>
@@ -175,43 +184,61 @@ const OrderDetails = () => {
         </div>
 
         <div className=" bg-gray-100 mx-2 p-2 my-3">
-          <h3 className="font-serif text-start mb-2  text-xl">
+          <h3 className="font-serif text-start mb-2 text-slate-600  text-lg md:text-xl">
             SHIPPING DETAILS
           </h3>
           <div>
-            <p>{orderDetails.user.name}</p>
-            <p>Email - {orderDetails.user.email}</p>
-            <p>Phone number - {orderDetails.shippingInfo.phoneNo}</p>
-            <p>
-              Address -{orderDetails.shippingInfo.address},
-              {orderDetails.shippingInfo.city},
-              {orderDetails.shippingInfo.pinCode},
-              {orderDetails.shippingInfo.country}
-            </p>
+            <div className="flex items-center justify-between text-[10px] sm:text-base ">
+              <p>Name</p>
+              <p>{orderDetails.user.name}</p>
+            </div>
+            <div className="flex items-center justify-between text-[10px] sm:text-base ">
+              <p>Email</p>
+              <p>{orderDetails.user.email}</p>
+            </div>
+            <div className="flex items-center justify-between text-[10px] sm:text-base ">
+              <p>Phone number</p>
+              <p>{orderDetails.shippingInfo.phoneNo}</p>
+            </div>
+            <div className="flex items-center justify-between text-[10px] sm:text-base ">
+              <p> Address </p>
+              <p>
+                {orderDetails.shippingInfo.address},
+                {orderDetails.shippingInfo.city},
+                {orderDetails.shippingInfo.pinCode},
+                {orderDetails.shippingInfo.country}
+              </p>
+            </div>
           </div>
         </div>
 
         <div className=" bg-gray-100 mx-2 p-2 mt-3 mb-6">
-          <h3 className="font-serif text-start mb-2  text-xl">PRICE DETAILS</h3>
+          <h3 className="font-serif text-start mb-2  text-lg md:text-xl text-slate-600">
+            PRICE DETAILS
+          </h3>
           <div>
-            <div className="flex items-center justify-between">
+            <div className="flex items-center justify-between text-[10px] sm:text-base ">
               <p>Subtotal</p>
               <p>₹{orderDetails.itemsPrice}</p>
             </div>
-            <div className="flex items-center justify-between">
+            <div className="flex items-center justify-between text-[10px] sm:text-base ">
               <p>Shipping Charges</p>
               <p>
                 {orderDetails.shippingPrice === 0 ? "" : "₹"}
                 {orderDetails.shippingPrice}
               </p>
             </div>
-            <div className="flex items-center justify-between">
+            <div className="flex items-center justify-between text-[10px] sm:text-base ">
               <p>Tax</p>
               <p>₹{orderDetails.taxPrice}</p>
             </div>
-            <div className="flex items-center justify-between">
-              <p className="font-serif text-lg">Total Price</p>
-              <p className="font-serif text-lg">₹{orderDetails.totalPrice}</p>
+            <div className="flex items-center justify-between text-[10px] sm:text-base ">
+              <p className="font-serif sm:text-lg text-base text-slate-900">
+                Total Price
+              </p>
+              <p className="font-serif sm:text-lg text-base text-slate-900">
+                ₹{orderDetails.totalPrice}
+              </p>
             </div>
           </div>
         </div>

@@ -58,7 +58,7 @@ const ProductDetails = () => {
       ) : (
         <>
           <div className=" flex flex-row items-start justify-stretch mb-6 flex-wrap">
-            <div className="flex flex-row">
+            <div className="flex flex-row overflow-x-hidden">
               {product?.images?.map((item, i) => (
                 <img
                   className=" h-[460px]"
@@ -86,17 +86,17 @@ const ProductDetails = () => {
                   style={{ color: "black" }}
                   size={window.innerWidth > 400 ? "large" : "small"}
                 />
-                <span className="text-gray-600 text-sm">
+                <span className="text-gray-600 text-[10px] md:text-sm">
                   ({product?.numOfReviews} reviews)
                 </span>
               </div>
               <div className="flex items-center space-x-1 mb-3">
                 <h1 className="font-sans text-xl">{`MRP ₹${product?.price}`}</h1>
-                <p className="text-gray-600 text-sm mt-1">
+                <p className="text-gray-600 text-[10px] md:text-sm mt-1">
                   (Inclusive of all taxes)
                 </p>
               </div>
-              <p className="text-sm text-gray-600 mb-6">
+              <p className="text-[15px] md:text-sm text-gray-600 mb-6">
                 {product?.description}
               </p>
 
@@ -120,7 +120,7 @@ const ProductDetails = () => {
               <div className="flex items-center space-x-1 mb-3">
                 <button
                   onClick={addtoCartHandler}
-                  className="px-10 bg-black hover:bg-gray-700 text-sm font-serif text-white mr-4 py-4 rounded-md text-center "
+                  className="px-10 bg-black hover:bg-gray-700 text-sm font-serif text-white md:mr-4 mr-1 md:py-4 py-3 rounded-md text-center "
                 >
                   ADD TO CART
                 </button>

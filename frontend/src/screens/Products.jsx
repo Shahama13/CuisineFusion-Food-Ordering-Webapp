@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import "../styles/products.css";
 import Accordion from "@mui/material/Accordion";
 import AccordionSummary from "@mui/material/AccordionSummary";
 import AccordionDetails from "@mui/material/AccordionDetails";
@@ -12,31 +11,35 @@ import { clearErrors } from "../Reducers/product";
 import { getProduct } from "../Actions/product";
 import { useParams } from "react-router-dom";
 import { AdjustmentsHorizontalIcon } from "@heroicons/react/24/outline";
-// import Pagination from "@mui/material/Pagination";
-// import Stack from "@mui/material/Stack";
+import Pagination from "@mui/material/Pagination";
+import Stack from "@mui/material/Stack";
 import { Slider } from "@mui/material";
 
 const categories = ["Indian", "Chinese", "Italian", "Burgers", "Pizza"];
 
 const Products = () => {
-  const dispatch = useDispatch();
-  const [showFilter, setShowFilter] = useState(true);
+
   const params = useParams();
+  const dispatch = useDispatch();
+
+  const [showFilter, setShowFilter] = useState(false);
   const [price, setPrice] = useState([0, 5000]);
   const [ratings, setRatings] = useState(0);
   const [category, setCategory] = useState("");
+  const [currentPage, setCurrentPage] = useState(1);
 
-  const priceHandler = (event, value) => {
+  const { products, loading, error, filteredProductCount, resultPerPage } =
+    useSelector((state) => state.products);
+  const keyword = params.keyword;
+
+  const priceHandler = (e, value) => {
     setPrice(value);
     setCurrentPage(1);
   };
-  const [currentPage, setCurrentPage] = useState(1);
-  const { products, loading, error, filteredProductCount, resultPerPage } =
-    useSelector((state) => state.products);
   const setCurrentPageNo = (e, value) => {
     setCurrentPage(value);
   };
-  const keyword = params.keyword;
+
   useEffect(() => {
     if (error) {
       toast.error(error);
@@ -44,23 +47,25 @@ const Products = () => {
     }
     dispatch(getProduct(keyword, currentPage, price, category, ratings));
   }, [dispatch, error, keyword, currentPage, price, category, ratings]);
+
   return (
     <>
       {loading ? (
         <Loader />
       ) : (
         <div className="mt-5">
+
           <button
             onClick={() => setShowFilter(!showFilter)}
-            className="flex items-center justify-center space-x-2 bg-slate-200 text-sm text-black ml-3 px-2 py-1 rounded-md border-1 border-gray-500"
+            className="flex items-center justify-center space-x-2 mb-4 bg-slate-200 text-sm text-black ml-3 px-2 py-1 rounded-md border-1 border-gray-500"
           >
             {showFilter ? "HIDE FILTERS " : "SHOW FILTERS"}
             <AdjustmentsHorizontalIcon class="h-5 w-5 text-gray-600" />
           </button>
 
-          <div className="flex">
+          <div className="flex flex-col sm:flex-row">
             {showFilter && (
-              <div className="w-[390px] pl-4 mt-2">
+              <div className="pl-4 mt-2 min-w-[200px] w-[200px] max-w-[200px]">
                 <Accordion className="w-full ">
                   <AccordionSummary
                     expandIcon={<ExpandMoreIcon />}
@@ -137,10 +142,10 @@ const Products = () => {
                       sx={{
                         "& .css-nnid7-MuiSlider-valueLabel": {
                           color: "black",
-                          backgroundColor: "#ebe5d5",
+                          backgroundColor: "#e2e8f0",
                         },
                       }}
-                      valueLabelDisplay="auto"
+                      valueLabelDisplay="on"
                       step={1}
                       marks
                       min={0}
@@ -152,17 +157,19 @@ const Products = () => {
             )}
 
             {products && products.length >= 1 ? (
-              <div className="flex flex-row flex-wrap items-center m-1">
+              <div className="flex flex-row flex-wrap items-center justify-center">
                 {products.map((product) => (
                   <ProductCard key={product._id} product={product} />
                 ))}
               </div>
             ) : (
-              <div className="self-center ml-[30%] font-serif text-3xl text-slate-500">No Items Found</div>
+              <div className="self-center ml-[30%] font-serif text-3xl text-slate-500">
+                No Items Found
+              </div>
             )}
           </div>
 
-          {/* {resultPerPage < filteredProductCount && (
+          {resultPerPage < filteredProductCount && (
             <div className="paginationBox">
               <Stack spacing={2}>
                 <Pagination
@@ -177,7 +184,7 @@ const Products = () => {
                 />
               </Stack>
             </div>
-          )} */}
+          )}
         </div>
       )}
     </>

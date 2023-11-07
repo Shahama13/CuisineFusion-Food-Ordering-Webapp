@@ -8,7 +8,9 @@ const LoggedInUser = () => {
   if (isAuthenticated === false) {
     return navigate("/login");
   }
-  return <Outlet />;
+  else{
+    return <Outlet />;
+  }
 };
 
 export default LoggedInUser;

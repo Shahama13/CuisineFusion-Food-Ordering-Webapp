@@ -27,7 +27,7 @@ const ProductCard = ({ product }) => {
   };
   return (
     <Link
-      className="m-1 w-[130px]  md:w-[168px] lg:w-[230px] p-0 mb-5 relative hover:bg-gray-100 "
+      className="m-[1px] w-[130px]  md:w-[168px] lg:w-[230px] p-0 mb-5 relative hover:bg-gray-100 "
       to={`/product/${product._id}`}
       onMouseEnter={() => setShow(true)}
       onMouseLeave={() => setShow(false)}

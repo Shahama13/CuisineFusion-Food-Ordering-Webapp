@@ -1,15 +1,16 @@
-import React, { useEffect, useRef, useState } from "react";
-import "../styles/loginSignup.css";
+import React, { useEffect, useState } from "react";
 import Loader from "../components/Loader";
-import EmailOutlinedIcon from "@mui/icons-material/EmailOutlined";
-import KeyOutlinedIcon from "@mui/icons-material/KeyOutlined";
-import TagFacesIcon from "@mui/icons-material/TagFaces";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import profilePng from "../Assets/profile.png";
 import { useDispatch, useSelector } from "react-redux";
 import { clearError } from "../Reducers/user";
 import { login, register } from "../Actions/user";
 import toast from "react-hot-toast";
+import {
+  EnvelopeIcon,
+  LockClosedIcon,
+  UserIcon,
+} from "@heroicons/react/24/outline";
 
 const LoginSignup = () => {
   const dispatch = useDispatch();
@@ -18,6 +19,7 @@ const LoginSignup = () => {
 
   const [loginEmail, setLoginEmail] = useState("");
   const [loginPassword, setLoginPassword] = useState("");
+  const [showLogin, setShowLogin] = useState(true);
 
   const [user, setUser] = useState({
     name: "",
@@ -31,9 +33,9 @@ const LoginSignup = () => {
 
   const { error, loading, isAuthenticated } = useSelector(
     (state) => state.user
-    );
-    
-const redirect = location.search? location.search.split("=")[1]: "account"
+  );
+
+  const redirect = location.search ? location.search.split("=")[1] : "account";
 
   useEffect(() => {
     if (error) {
@@ -43,7 +45,7 @@ const redirect = location.search? location.search.split("=")[1]: "account"
     if (isAuthenticated) {
       navigate(`/${redirect}`);
     }
-  }, [error, dispatch,location, navigate, isAuthenticated,redirect]);
+  }, [error, dispatch, location, navigate, isAuthenticated, redirect]);
 
   const loginSubmit = (e) => {
     e.preventDefault();
@@ -55,27 +57,6 @@ const redirect = location.search? location.search.split("=")[1]: "account"
   const registerSubmit = (e) => {
     e.preventDefault();
     dispatch(register(name, email, password, avatar));
-  };
-
-  const loginTab = useRef(null);
-  const registerTab = useRef(null);
-  const switcherTab = useRef(null);
-
-  const switchTabs = (e, tab) => {
-    if (tab === "login") {
-      switcherTab.current.classList.add("shiftToNeutral");
-      switcherTab.current.classList.remove("shiftToRight");
-
-      registerTab.current.classList.remove("shiftToNeutralForm");
-      loginTab.current.classList.remove("shiftToLeft");
-    }
-    if (tab === "register") {
-      switcherTab.current.classList.add("shiftToRight");
-      switcherTab.current.classList.remove("shiftToNeutral");
-
-      registerTab.current.classList.add("shiftToNeutralForm");
-      loginTab.current.classList.add("shiftToLeft");
-    }
   };
 
   const registerDataChange = (e) => {
@@ -95,56 +76,85 @@ const redirect = location.search? location.search.split("=")[1]: "account"
   };
 
   return (
-    <div className="LoginSignUpContainer">
+    <div className="w-full items-center justify-center flex flex-col p-8 md:p-0">
       {loading ? (
         <Loader />
-      ) : (
-        <div className="loginSignUpBox">
-          <div>
-            <div className="login_signUp_toggle">
-              <p onClick={(e) => switchTabs(e, "login")}>LOGIN</p>
-              <p onClick={(e) => switchTabs(e, "register")}>REGISTER</p>
-            </div>
-            <button ref={switcherTab}></button>
-          </div>
-          <form ref={loginTab} className="loginForm" onSubmit={loginSubmit}>
-            <div className="loginEmail">
-              <EmailOutlinedIcon />
+      ) : showLogin ? (
+        <>
+          <form
+            className="flex flex-col w-full mt-0 sm:mt-5 md:w-1/2  max-w-lg p-4 pt-3 sm:pt-12 pb-8 rounded-md bg-white shadow-xl "
+            onSubmit={loginSubmit}
+          >
+            <div className="relative mb-3">
+              <EnvelopeIcon className=" h-6 w-6 text-black absolute top-[15px] left-3" />
               <input
+                className="outline-none bg-slate-100 rounded-md pl-12 py-3 pr-2 w-full"
                 type="email"
-                placeholder="email"
+                placeholder="Email"
                 value={loginEmail}
                 onChange={(e) => setLoginEmail(e.target.value)}
                 required
               />
             </div>
-            <div className="loginPassword">
-              <KeyOutlinedIcon />
+
+            <div className="relative mb-3">
+              <LockClosedIcon className=" h-6 w-6 text-black absolute top-[15px] left-3" />
               <input
+                className="outline-none bg-slate-100 rounded-md pl-12 py-3 pr-2 w-full"
                 type="password"
-                placeholder="password"
+                placeholder="Password"
                 value={loginPassword}
                 onChange={(e) => setLoginPassword(e.target.value)}
                 required
               />
             </div>
-            <Link to={"/password/forgot"}>Fogot Password?</Link>
-            <input
+
+            <Link
+              className="mb-6 self-end text-sm hover:text-blue-500 text-black"
+              to={"/password/forgot"}
+            >
+              Forgot Password?
+            </Link>
+            <button
+              className="bg-black w-full text-white font-serif py-2 mt-2"
               type="submit"
-              value="Login"
-              style={{ backgroundColor: "#3a9dff" }}
-              className="loginBtn"
-            />
+            >
+              LOGIN
+            </button>
           </form>
 
+          <p
+            onClick={() => setShowLogin(!showLogin)}
+            className="cursor-pointer font-bold mt-2"
+          >
+            Don't have an account?
+          </p>
+        </>
+      ) : (
+        <>
           <form
-            ref={registerTab}
-            className="signUpForm"
+            className="flex flex-col w-full mt-0 sm:mt-5 md:w-1/2  max-w-lg p-4 pt-1 sm:pt-4 pb-8 rounded-md bg-white shadow-xl "
             onSubmit={registerSubmit}
           >
-            <div className="signUpName">
-              <TagFacesIcon />
+            <div className="flex flex-col items-center mb-3">
+              <img
+                src={avatarPreview}
+                className="h-20 w-20 rounded-full"
+                alt="Avatar Preview"
+              />
               <input
+                className="text-sm text-gray-400"
+                type="file"
+                name="avatar"
+                accept="image/*"
+                onChange={registerDataChange}
+              />
+            </div>
+
+            <div className="relative mb-3">
+              <UserIcon className=" h-6 w-6 text-black absolute top-[15px] left-3" />
+              <input
+                className="outline-none bg-slate-100 rounded-md pl-12 py-3 pr-2 w-full"
                 required
                 type="text"
                 placeholder="Name"
@@ -153,9 +163,10 @@ const redirect = location.search? location.search.split("=")[1]: "account"
                 onChange={registerDataChange}
               />
             </div>
-            <div className="signUpEmail">
-              <EmailOutlinedIcon />
+            <div className="relative mb-3">
+              <EnvelopeIcon className=" h-6 w-6 text-black absolute top-[15px] left-3" />
               <input
+                className="outline-none bg-slate-100 rounded-md pl-12 py-3 pr-2 w-full"
                 type="email"
                 placeholder="Email"
                 name="email"
@@ -164,9 +175,10 @@ const redirect = location.search? location.search.split("=")[1]: "account"
                 required
               />
             </div>
-            <div className="signUpPassword">
-              <KeyOutlinedIcon />
+            <div className="relative mb-3">
+              <LockClosedIcon className=" h-6 w-6 text-black absolute top-[15px] left-3" />
               <input
+                className="outline-none bg-slate-100 rounded-md pl-12 py-3 pr-2 w-full"
                 type="password"
                 placeholder="Password"
                 name="password"
@@ -176,24 +188,21 @@ const redirect = location.search? location.search.split("=")[1]: "account"
               />
             </div>
 
-            <div className="registerImage">
-              <img src={avatarPreview} alt="Avatar Preview" />
-              <input
-                type="file"
-                name="avatar"
-                accept="image/*"
-                onChange={registerDataChange}
-              />
-            </div>
-
-            <input
+            <button
+              className="bg-black w-full text-white font-serif py-2 mt-2"
               type="submit"
-              value="Register"
-              style={{ backgroundColor: "#3a9dff" }}
-              className="SignUpBtn"
-            />
+            >
+              SIGN UP
+            </button>
           </form>
-        </div>
+
+          <p
+            onClick={() => setShowLogin(!showLogin)}
+            className="cursor-pointer font-bold mt-2 mb-6"
+          >
+            Already have an account?
+          </p>
+        </>
       )}
     </div>
   );

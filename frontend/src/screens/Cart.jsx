@@ -2,7 +2,7 @@ import React from "react";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import CartItemCard from "../components/CartItemCard";
-import {ShoppingCartIcon} from "@heroicons/react/24/outline"
+import { ShoppingCartIcon } from "@heroicons/react/24/outline";
 
 const Cart = () => {
   const navigate = useNavigate();
@@ -24,30 +24,24 @@ const Cart = () => {
   return (
     <>
       {cartItems.length === 0 ? (
-        <div className="flex flex-col w-full h-[100vh] items-center justify-center">
-          <ShoppingCartIcon className="h-32 w-32 text-black mb-2" />
-          <h1 className="font-serif text-center text-2xl font-bold text-black">
+        <div className="flex px-2 md:p-0 flex-col w-full  items-center justify-center">
+          <ShoppingCartIcon className="h-16 w-16 mt-6 text-black md:mb-2 mb-0" />
+          <h1 className="font-serif text-center md:text-2xl text-lg font-bold text-black">
             YOUR CART IS EMPTY! SHOP NOW!
           </h1>
           <button
             onClick={() => navigate("/products")}
-            className="font-serif p-2 px-9 text-white w-fit bg-black mt-5 hover:bg-gray-700"
+            className="font-serif p-2 md:px-9 px-3 rounded-md text-white w-fit bg-black md:mt-5 mt-3 text-sm md:text-base hover:bg-gray-700"
           >
             SHOP NOW!
           </button>
         </div>
       ) : (
-        <div className="flex flex-col  sm:flex-row p-2 sm:p-6 space-x-7 ">
-          <div className="flex flex-col w-full md:w-2/3 ">
-            <h1 className=" text-2xl sm:mt-7 mb-3 sm:mb-4 font-serif">
-              Shopping Cart
+        <div className="flex flex-col  md:flex-row p-2 md:space-x-7 space-x-0 ">
+          <div className="flex flex-col w-full ">
+            <h1 className=" text-lg text-center sm:text-2xl m-2 text-slate-700 font-serif">
+              SHOPPING CART
             </h1>
-            <div className="hidden md:flex p-3 w-full justify-end space-x-16 border-y-1 border-gray-500">
-              <div>Product</div>
-              <div>Price</div>
-              <div>Quantity</div>
-              <div>Subtotal</div>
-            </div>
 
             <div>
               {cartItems &&
@@ -57,40 +51,39 @@ const Cart = () => {
             </div>
           </div>
 
-          <div className="md:w-1/3 w-full">
-            <h1 className=" text-2xl mb-6 mt-7 md:mb-6 font-serif">
-              Cart Totals
-            </h1>
-            <div className=" px-2 mb-1 w-full flex justify-between">
-              <div>Subtotal</div>
-              <div>₹{subTotal}</div>
-            </div>
-            <div className="px-2 w-full mb-0 flex justify-between ">
-              <div>
-                Shipping{" "}
-                <span className="text-sm text-red-400">
-                  (Free on orders above 999)
-                </span>
+          <div className="w-full md:1/2  bg-purple-50 sm:px-5 sm:pb-5 px-2 py-0  h-fit flex flex-col">
+            <h3 className="font-serif sm:text-xl text-lg text-slate-700 text-center my-2 ">
+              PRICE DETAILS
+            </h3>
+            <div className="space-y-2">
+              <div className="text-sm sm:text-base w-full flex justify-between">
+                <div>Subtotal</div>
+                <div>₹{subTotal}</div>
               </div>
-              <div>₹{shippingCharges}</div>
+              <div className=" w-full text-sm sm:text-base flex justify-between ">
+                <div>
+                  Shipping{" "}
+                  <span className="text-[6px] sm:text-sm  text-red-400">
+                    (Free on orders above 999)
+                  </span>
+                </div>
+                <div>₹{shippingCharges}</div>
+              </div>
+              <div className="w-full text-sm sm:text-base flex justify-between ">
+                <div>GST</div>
+                <div>₹{gst}</div>
+              </div>
+              <div className="text-sm sm:text-base w-full flex justify-between font-bold">
+                <div>Total</div>
+                <div>₹{total}</div>
+              </div>
             </div>
-            <div className="px-2 w-full mb-0 flex justify-between ">
-              <div>GST</div>
-              <div>₹{gst}</div>
-            </div>
-            {/* <div className="px-2 mb-1 w-full mb-0 flex justify-between ">
-              <div>Packaging</div>
-              <div>50</div>
-            </div> */}
-            <div className="p-2 py-5 w-full flex justify-between border-y-1 border-gray-500">
-              <div>Total</div>
-              <div>₹{total}</div>
-            </div>
+
             <button
               onClick={checkoutHandler}
-              className="w-full p-3 my-2 bg-black text-white hover:bg-gray-700"
+              className="w-full text-sm sm:text-lg p-0 py-2 sm:p-3 my-2 bg-black text-white hover:bg-gray-700 font-serif"
             >
-              PROCEED TO CHECKOUT
+              PROCCED TO CHECKOUT
             </button>
           </div>
         </div>

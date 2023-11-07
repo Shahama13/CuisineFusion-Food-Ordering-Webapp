@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import "../styles/search.css";
 import { useNavigate } from "react-router-dom";
 import MetaData from "../MetaData";
 

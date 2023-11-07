@@ -18,7 +18,7 @@ const CheckoutSteps = ({ activeStep }) => {
         <div
           className={
             activeStep === 0
-              ? "font-serif text-2xl"
+              ? "font-serif text-xl md:text-2xl"
               : activeStep > 0
               ? "font-bold"
               : ""
@@ -40,7 +40,7 @@ const CheckoutSteps = ({ activeStep }) => {
         <div
           className={
             activeStep === 1
-              ? "font-serif text-2xl"
+              ? "font-serif text-xl md:text-2xl"
               : activeStep > 1
               ? "font-bold"
               : ""
@@ -61,7 +61,7 @@ const CheckoutSteps = ({ activeStep }) => {
         <div
           className={
             activeStep === 2
-              ? "font-serif text-2xl"
+              ? "font-serif  text-xl md:text-2xl"
               : activeStep > 2
               ? "font-bold"
               : ""
