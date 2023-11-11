@@ -6,6 +6,7 @@ import { clearError, updatePasswordReset } from "../Reducers/profile";
 import { updatePassword } from "../Actions/user";
 import toast from "react-hot-toast";
 import { LockClosedIcon, LockOpenIcon } from "@heroicons/react/24/outline";
+import MetaData from "../MetaData";
 
 const UpdatePassword = () => {
   const dispatch = useDispatch();
@@ -36,6 +37,7 @@ const UpdatePassword = () => {
 
   return (
     <>
+      <MetaData title={`Update Password`} />
       {loading ? (
         <Loader />
       ) : (

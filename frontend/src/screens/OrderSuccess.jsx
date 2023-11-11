@@ -3,6 +3,7 @@ import { CheckBadgeIcon } from "@heroicons/react/24/solid";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { getMyOrders } from "../Actions/order";
+import MetaData from "../MetaData";
 
 const OrderSuccess = () => {
   const dispatch = useDispatch();
@@ -12,6 +13,8 @@ const OrderSuccess = () => {
   const navigate = useNavigate();
   return (
     <>
+      <MetaData title="Order Successfull" />
+
       <div className="flex px-2 md:p-0 flex-col w-full  items-center justify-center">
         <CheckBadgeIcon className="md:h-32 md:w-32 h-16 w-16 mt-6 text-black md:mb-2 mb-0" />
         <h1 className="font-serif text-center md:text-2xl text-lg font-bold text-black">

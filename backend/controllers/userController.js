@@ -25,7 +25,15 @@ export const registerUser = catchAsyncError(async (req, res, next) => {
     }
     newUser = await User.create(newUser)
 
+
+    await sendEmail({
+        email,
+        subject: `Welcome`,
+        message: `Heyyy ${name} ! Thanks for Signing Up on Fabizo`
+    })
+
     sendToken(newUser, 201, res)
+
 })
 
 // Login User
@@ -68,7 +76,7 @@ export const forgotPassword = catchAsyncError(async (req, res, next) => {
     try {
         await sendEmail({
             email: user.email,
-            subject: `CuisineFusion password recovery`,
+            subject: `Fabizo password recovery`,
             message
         })
 

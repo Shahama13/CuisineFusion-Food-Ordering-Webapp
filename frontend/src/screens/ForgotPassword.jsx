@@ -5,6 +5,7 @@ import { clearError } from "../Reducers/profile";
 import toast from "react-hot-toast";
 import { forgotPassword } from "../Actions/user";
 import { EnvelopeIcon } from "@heroicons/react/24/outline";
+import MetaData from "../MetaData";
 
 const ForgotPassword = () => {
   const dispatch = useDispatch();
@@ -29,8 +30,9 @@ const ForgotPassword = () => {
     <>
       {loading ? (
         <Loader />
-      ) : (
-        <>
+        ) : (
+          <>
+          <MetaData title="Forgot Password?" />
           <div className="w-full items-center justify-center flex flex-col p-8 md:p-0">
             <form
               className="flex flex-col w-full mt-0 sm:mt-5 md:w-1/2  max-w-lg p-4 pt-3 sm:pt-12 pb-8 rounded-md bg-white shadow-xl "

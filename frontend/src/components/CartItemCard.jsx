@@ -34,10 +34,10 @@ const CartItemCard = ({ item, showCross = true }) => {
         <img src={item.image} className="h-24 w-16 md:h-32 md:w-28" alt="" />
       </div>
 
-      <div className="flex flex-col w-[60%] sm:flex-row items-center justify-center space-x-2">
+      <div className="flex flex-col w-[60%] sm:flex-row items-center justify-evenly space-x-2">
         <Link
           to={`/product/${item.product}`}
-          className="text-sm mr:3 md:text-lg font-serif w-16 text-start text-black"
+          className="text-sm md:text-lg font-serif w-16 text-start text-black"
         >
           {item.name.toUpperCase()}
         </Link>
@@ -75,7 +75,7 @@ const CartItemCard = ({ item, showCross = true }) => {
             )}
           </div>
           <div>=</div>
-          <div> ₹{item.quantity * item.price}</div>
+          <div className="text-sm sm:text-base"> ₹{item.quantity * item.price}</div>
         </div>
       </div>
     </div>

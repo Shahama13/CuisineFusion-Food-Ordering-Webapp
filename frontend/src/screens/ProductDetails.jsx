@@ -10,6 +10,7 @@ import { HeartIcon } from "@heroicons/react/24/outline";
 import { HeartIcon as HeartOutline } from "@heroicons/react/24/solid";
 import { clearError } from "../Reducers/product";
 import { addItemsToCart } from "../Actions/cart";
+import MetaData from "../MetaData";
 
 const ProductDetails = () => {
   const dispatch = useDispatch();
@@ -57,16 +58,9 @@ const ProductDetails = () => {
         <Loader />
       ) : (
         <>
-          <div className=" flex flex-row items-start justify-stretch mb-6 flex-wrap">
-            <div className="flex flex-row overflow-x-hidden">
-              {product?.images?.map((item, i) => (
-                <img
-                  className=" h-[460px]"
-                  key={item.url}
-                  src={item.url}
-                  alt={`${i}slide`}
-                />
-              ))}
+          <MetaData title={product?.name} />
+          <div className=" flex flex-row items-start justify-stretch mb-6 flex-wrap mt-1 ">
+            <div className="flex flex-row overflow-x-scroll">
               {product?.images?.map((item, i) => (
                 <img
                   className=" h-[460px]"

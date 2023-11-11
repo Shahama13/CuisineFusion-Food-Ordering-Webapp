@@ -1,9 +1,9 @@
 import { configureStore } from "@reduxjs/toolkit";
-import productSlice, { newReviewSlice, productDetailsSlice } from "./Reducers/product"
+import productSlice, { createProductSlice, newReviewSlice, productDetailsSlice, removeProductSlice } from "./Reducers/product"
 import userSlice from "./Reducers/user"
 import profileSlice from "./Reducers/profile"
 import cartSlice from "./Reducers/cart"
-import orderSlice from "./Reducers/order"
+import orderSlice, { adminOrderSlice } from "./Reducers/order"
 
 const store = configureStore({
     reducer: {
@@ -13,7 +13,10 @@ const store = configureStore({
         profile:profileSlice,
         cart:cartSlice,
         order: orderSlice,
+        createProduct:createProductSlice.reducer,
         review: newReviewSlice.reducer,
+        removeProduct: removeProductSlice.reducer,
+        adminOrder: adminOrderSlice.reducer,
     }
 })
 export default store;

@@ -2,6 +2,7 @@ import axios from "axios";
 import { loadUserFail, loadUserRequest, loadUserSuccess, loginFail, loginRequest, loginSuccess, logoutSuccess, registerFail, registerRequest, registerSuccess } from "../Reducers/user";
 import toast from "react-hot-toast";
 import { forgotPasswordFail, forgotPasswordRequest, forgotPasswordSuccess, resetPasswordFail, resetPasswordRequest, resetPasswordSuccess, updatePasswordFail, updatePasswordRequest, updatePasswordSuccess, updateProfileFail, updateProfileRequest, updateProfileSuccess } from "../Reducers/profile";
+import { allOrderFailure, allOrderRequest, getAllUserSuccess } from "../Reducers/order";
 
 export const login = (email, password) => async (dispatch) => {
     try {
@@ -112,7 +113,7 @@ export const forgotPassword = (email) => async (dispatch) => {
     try {
         dispatch(forgotPasswordRequest())
         const { data } = await axios.post("/api/v1/password/forgot", {
-           email
+            email
         })
         dispatch(forgotPasswordSuccess())
         toast.success(data.message)
@@ -128,10 +129,10 @@ export const resetPassword = (token, password, confirmPassword) => async (dispat
     try {
         dispatch(resetPasswordRequest())
         const { data } = await axios.put(`/api/v1/password/reset/${token}`, {
-            password,confirmPassword
+            password, confirmPassword
         })
         dispatch(resetPasswordSuccess())
-        if (data.success===true){
+        if (data.success === true) {
             toast.success("Your password has been changed successfully")
         }
 
@@ -139,5 +140,15 @@ export const resetPassword = (token, password, confirmPassword) => async (dispat
         dispatch(resetPasswordFail({
             error: error.response.data.message
         }))
+    }
+}
+
+export const getAllUsers = () => async (dispatch) => {
+    try {
+        dispatch(allOrderRequest())
+        const { data } = await axios.get("/api/v1/admin/users")
+        dispatch(getAllUserSuccess(data.users))
+    } catch (error) {
+        dispatch(allOrderFailure(error.response.data.message))
     }
 }

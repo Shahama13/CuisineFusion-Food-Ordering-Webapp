@@ -1,11 +1,13 @@
 import express from "express"
-import { createProduct, getAllProducts, updateProduct, deleteProduct, getProductDetails, createProductReview, getProductReviews } from "../controllers/productController.js";
+import { createProduct, getAllProducts, updateProduct, deleteProduct, getProductDetails, createProductReview, getProductReviews, getAllPrdoductsAdmin } from "../controllers/productController.js";
 import isAuthenticatedUser, { authorizedRoles } from "../middlewares/auth.js";
 
 const router = express.Router()
 
 router.route("/products").get(getAllProducts)
 router.get("/product/:id", getProductDetails)
+
+router.route("/all-products").get(isAuthenticatedUser,authorizedRoles, getAllPrdoductsAdmin)
 
 router.route("/review").post(isAuthenticatedUser, createProductReview)
 router.route("/reviews").get(getProductReviews)

@@ -30,9 +30,9 @@ const CheckoutSteps = ({ activeStep }) => {
 
       icon:
         activeStep >= 0 ? (
-          <TruckFilled class="h-6 w-6 text-black" />
+          <TruckFilled className="h-6 w-6 text-black" />
         ) : (
-          <TruckIcon class="h-6 w-6 text-gray-400" />
+          <TruckIcon className="h-6 w-6 text-gray-400" />
         ),
     },
     {
@@ -51,9 +51,9 @@ const CheckoutSteps = ({ activeStep }) => {
       ),
       icon:
         activeStep >= 1 ? (
-          <CheckFilled class="h-6 w-6 text-black" />
+          <CheckFilled className="h-6 w-6 text-black" />
         ) : (
-          <CheckBadgeIcon class="h-6 w-6 text-gray-400" />
+          <CheckBadgeIcon className="h-6 w-6 text-gray-400" />
         ),
     },
     {
@@ -72,9 +72,9 @@ const CheckoutSteps = ({ activeStep }) => {
       ),
       icon:
         activeStep >= 2 ? (
-          <BankFilled class="h-6 w-6 text-black" />
+          <BankFilled className="h-6 w-6 text-black" />
         ) : (
-          <BanknotesIcon class="h-6 w-6 text-gray-400" />
+          <BanknotesIcon className="h-6 w-6 text-gray-400" />
         ),
     },
   ];

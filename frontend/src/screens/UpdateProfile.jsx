@@ -7,6 +7,7 @@ import { clearError, updateProfileReset } from "../Reducers/profile";
 import { loadUser, updateProfile } from "../Actions/user";
 import toast from "react-hot-toast";
 import { EnvelopeIcon, UserIcon } from "@heroicons/react/24/outline";
+import MetaData from "../MetaData";
 
 const UpdateProfile = () => {
   const dispatch = useDispatch();
@@ -54,6 +55,7 @@ const UpdateProfile = () => {
 
   return (
     <>
+      <MetaData title={`Update Profile`} />
       {loading ? (
         <Loader />
       ) : (
@@ -101,13 +103,12 @@ const UpdateProfile = () => {
                 required
               />
             </div>
-           
 
             <button
               className="bg-black w-full text-white font-serif py-2 mt-2"
               type="submit"
             >
-             UPDATE PROFILE
+              UPDATE PROFILE
             </button>
           </form>
         </div>

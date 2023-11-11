@@ -43,7 +43,7 @@ const Home = () => {
         <Loader />
       ) : (
         <>
-          <MetaData title="Fabizo" />
+          <MetaData title="Fabizo - Homepage" />
           <div className="relative">
             <img src={require("../Assets/newarrival.png")} alt="" />
             <button

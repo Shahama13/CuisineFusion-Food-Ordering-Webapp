@@ -13,7 +13,9 @@ const productSlice = createSlice({
             state.products = action.payload.products;
             state.resultPerPage = action.payload.resultPerPage;
             state.filteredProductCount = action.payload.filteredProductCount;
-            // state.productCount = action.payload.productCount;
+        },
+        adminProductSuccess: (state, action) => {
+            state.adminProducts = action.payload
         },
         allProductFailure: (state, action) => {
             state.loading = false;
@@ -71,9 +73,61 @@ export const newReviewSlice = createSlice({
     }
 })
 
+export const createProductSlice = createSlice({
+    name: "createProduct",
+    initialState: {},
+    reducers: {
+        productRequest: (state) => {
+            state.loading = true;
+        },
+        productSuccess: (state, action) => {
+            state.loading = false;
+            state.success = true;
+        },
+        productFailure: (state, action) => {
+            state.loading = false;
+            state.error = action.payload;
+        },
+        productReset: (state) => {
+            state.success = false
+        },
+        clearproductError: (state) => {
+            state.error = null;
+        },
+    }
+})
+
+export const removeProductSlice = createSlice({
+    name: "removeProduct",
+    initialState: {},
+    reducers: {
+        removeRequest: (state) => {
+            state.loading = true;
+        },
+        removeSuccess: (state, action) => {
+            state.loading = false;
+            state.success = action.payload;
+        },
+        removeFailure: (state, action) => {
+            state.loading = false;
+            state.error = action.payload;
+        },
+        removeReset: (state) => {
+            state.success = false
+        },
+        clearremoveError: (state) => {
+            state.error = null;
+        },
+    }
+})
+
+export const {removeRequest,removeSuccess,removeFailure,removeReset,clearremoveError } = removeProductSlice.actions
+
+export const { productRequest, productSuccess, productReset, productFailure, clearproductError } = createProductSlice.actions
 
 export default productSlice.reducer;
-export const { allProductRequest, allProductSuccess, allProductFailure, clearErrors } = productSlice.actions;
+
+export const { allProductRequest, adminProductSuccess, allProductSuccess, allProductFailure, clearErrors } = productSlice.actions;
 
 export const { productDetailsRequest, productDetailsSuccess, productDetailsFailure, clearError } = productDetailsSlice.actions
 

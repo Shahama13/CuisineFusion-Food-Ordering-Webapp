@@ -13,6 +13,7 @@ import {
 import CheckoutSteps from "../components/CheckoutSteps";
 import toast from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
+import MetaData from "../MetaData";
 
 const Address = () => {
   const dispatch = useDispatch();
@@ -40,13 +41,14 @@ navigate("/order-summary")
 
   return (
     <>
+      <MetaData title="Confirm Address" />
       <CheckoutSteps activeStep={0} />
       <div className="flex flex-col w-full h-full items-center mt-6">
         {/* <h2 className="font-serif text-2xl my-4">Address</h2> */}
 
         <form onSubmit={shippingSubmit} className="w-[80%] sm:w-[60%] md:w-1/3">
           <div className="flex mb-3">
-            <GlobeAltIcon class="h-6 w-6 text-black absolute mt-4 ml-2  " />
+            <GlobeAltIcon className="h-6 w-6 text-black absolute mt-4 ml-2  " />
 
             <select
               className="border-1 w-full border-black pl-9 py-4 "
@@ -66,7 +68,7 @@ navigate("/order-summary")
           </div>
 
           <div className="flex mb-3">
-            <PhoneIcon class="h-6 w-6 text-black absolute mt-4 ml-2  " />
+            <PhoneIcon className="h-6 w-6 text-black absolute mt-4 ml-2  " />
             <input
               className="border-1 w-full border-black pl-9 py-4"
               type="number"
@@ -79,7 +81,7 @@ navigate("/order-summary")
 
           {/* {country && ( */}
           <div className="flex mb-3 ">
-            <MapIcon class="h-6 w-6  text-black absolute mt-4 ml-2  " />
+            <MapIcon className="h-6 w-6  text-black absolute mt-4 ml-2  " />
             <select
               className="border-1 w-full border-black pl-9 py-4"
               required
@@ -101,7 +103,7 @@ navigate("/order-summary")
 
           {/* {state && ( */}
           <div className="flex mb-3">
-            <MapPinIcon class="h-6 w-6 text-black absolute mt-4 ml-2  " />
+            <MapPinIcon className="h-6 w-6 text-black absolute mt-4 ml-2  " />
             <select
               className="border-1 w-full border-black pl-9 py-4"
               required
@@ -122,7 +124,7 @@ navigate("/order-summary")
           {/* )} */}
 
           <div className="flex mb-3">
-            <PaperClipIcon class="h-6 w-6 text-black absolute mt-4 ml-2  " />
+            <PaperClipIcon className="h-6 w-6 text-black absolute mt-4 ml-2  " />
             <input
               className="border-1 w-full border-black pl-9 py-4"
               type="number"
@@ -134,7 +136,7 @@ navigate("/order-summary")
           </div>
 
           <div className="flex mb-3">
-            <HomeIcon class="h-6 w-6 text-black absolute mt-4 ml-2  " />
+            <HomeIcon className="h-6 w-6 text-black absolute mt-4 ml-2  " />
             <input
               className="border-1 w-full border-black pl-9 py-4"
               type="text"

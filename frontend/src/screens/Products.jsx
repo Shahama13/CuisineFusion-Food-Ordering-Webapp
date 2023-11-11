@@ -14,11 +14,20 @@ import { AdjustmentsHorizontalIcon } from "@heroicons/react/24/outline";
 import Pagination from "@mui/material/Pagination";
 import Stack from "@mui/material/Stack";
 import { Slider } from "@mui/material";
+import MetaData from "../MetaData";
 
-const categories = ["Indian", "Chinese", "Italian", "Burgers", "Pizza"];
+const categories = [
+  "Footwear",
+  "Attire",
+  "Children",
+  "Tops",
+  "Jeans",
+  "Accessories",
+  "Gadgets",
+  "Home Decor"
+];
 
 const Products = () => {
-
   const params = useParams();
   const dispatch = useDispatch();
 
@@ -50,17 +59,17 @@ const Products = () => {
 
   return (
     <>
+      <MetaData title={`Fabizo`} />
       {loading ? (
         <Loader />
       ) : (
         <div className="mt-5">
-
           <button
             onClick={() => setShowFilter(!showFilter)}
             className="flex items-center justify-center space-x-2 mb-4 bg-slate-200 text-sm text-black ml-3 px-2 py-1 rounded-md border-1 border-gray-500"
           >
             {showFilter ? "HIDE FILTERS " : "SHOW FILTERS"}
-            <AdjustmentsHorizontalIcon class="h-5 w-5 text-gray-600" />
+            <AdjustmentsHorizontalIcon className="h-5 w-5 text-gray-600" />
           </button>
 
           <div className="flex flex-col sm:flex-row">
@@ -161,6 +170,22 @@ const Products = () => {
                 {products.map((product) => (
                   <ProductCard key={product._id} product={product} />
                 ))}
+                {resultPerPage < filteredProductCount && (
+                  <div className="paginationBox">
+                    <Stack spacing={2}>
+                      <Pagination
+                        defaultPage={1}
+                        page={currentPage}
+                        onChange={setCurrentPageNo}
+                        size="large"
+                        color={"primary"}
+                        count={Math.ceil(filteredProductCount / resultPerPage)}
+                        variant="outlined"
+                        shape="rounded"
+                      />
+                    </Stack>
+                  </div>
+                )}
               </div>
             ) : (
               <div className="self-center ml-[30%] font-serif text-3xl text-slate-500">
@@ -168,23 +193,6 @@ const Products = () => {
               </div>
             )}
           </div>
-
-          {resultPerPage < filteredProductCount && (
-            <div className="paginationBox">
-              <Stack spacing={2}>
-                <Pagination
-                  defaultPage={1}
-                  page={currentPage}
-                  onChange={setCurrentPageNo}
-                  size="large"
-                  color={"primary"}
-                  count={Math.ceil(filteredProductCount / resultPerPage)}
-                  variant="outlined"
-                  shape="rounded"
-                />
-              </Stack>
-            </div>
-          )}
         </div>
       )}
     </>

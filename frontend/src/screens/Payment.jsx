@@ -7,6 +7,7 @@ import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { clearErrors } from "../Reducers/order";
 import { createOrder } from "../Actions/order";
+import MetaData from "../MetaData";
 
 const Payment = () => {
   const navigate = useNavigate();
@@ -99,16 +100,18 @@ const Payment = () => {
   };
 
   return (
-
     <>
       <CheckoutSteps activeStep={2} />
       {show && (
-        <div className="flex flex-col w-full  items-center mt-24 ">
-          <p className="font-serif m-3 text-black text-2xl">
-            Payment Cancelled!
-          </p>
-          <button className="bg-black px-12 py-2 text-white">Retry</button>
-        </div>
+        <>
+          <MetaData title="Payment" />
+          <div className="flex flex-col w-full  items-center mt-24 ">
+            <p className="font-serif m-3 text-black text-2xl">
+              Payment Cancelled!
+            </p>
+            <button className="bg-black px-12 py-2 text-white">Retry</button>
+          </div>
+        </>
       )}
     </>
   );

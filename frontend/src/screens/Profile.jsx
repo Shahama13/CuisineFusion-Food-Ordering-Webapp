@@ -32,7 +32,7 @@ const Profile = () => {
         <>
           {user?.role === "admin" && (
             <div
-              onClick={() => navigate("/dashboard")}
+              onClick={() => navigate("/admin/dashboard")}
               className="cursor-pointer bg-gray-100 my-3 mt-7 mx-10 rounded-md hover:bg-gray-200 p-4 flex items-center justify-between"
             >
               <div className="flex items-center">
@@ -100,30 +100,6 @@ const Profile = () => {
             </div>
             <ChevronRightIcon className="h-6 w-6 text-gray-600" />
           </div>
-
-          {/* <div>
-            {user.avatar  ? (
-              <img
-                src={user.avatar.url ? user.avatar.url : profilePng}
-                alt={user.name}
-              />
-            ):(<AccountCircleIcon/>)}
-            <Link to="/me/update">Edit Profile</Link>
-          </div>
-          <div>
-            <div>
-              <h4>Full Name</h4>
-              <p>{user.name}</p>
-            </div>
-            <div>
-              <h4>Email</h4>
-              <p>{user.email}</p>
-            </div>
-            <div>
-              <Link to="/orders">My Orders</Link>
-              <Link to="/password/update">Update Password</Link>
-            </div>
-          </div> */}
         </>
       )}
     </>

@@ -3,6 +3,7 @@ import CheckoutSteps from "../components/CheckoutSteps";
 import { useSelector } from "react-redux";
 import CartItemCard from "../components/CartItemCard";
 import { useNavigate } from "react-router-dom";
+import MetaData from "../MetaData";
 
 const OrderSummary = () => {
   const { cartItems, shippingInfo } = useSelector((state) => state.cart);
@@ -37,6 +38,7 @@ const OrderSummary = () => {
 
   return (
     <>
+      <MetaData title="Orders Summary" />
       <CheckoutSteps activeStep={1} />
       <div className="flex flex-col md:flex-row  w-full h-full  p-2 sm:p-6 md:space-x-7">
         <div className="md:w-1/2 w-full">

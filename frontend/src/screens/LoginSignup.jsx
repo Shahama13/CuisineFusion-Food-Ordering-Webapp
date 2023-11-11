@@ -11,6 +11,7 @@ import {
   LockClosedIcon,
   UserIcon,
 } from "@heroicons/react/24/outline";
+import MetaData from "../MetaData";
 
 const LoginSignup = () => {
   const dispatch = useDispatch();
@@ -81,6 +82,7 @@ const LoginSignup = () => {
         <Loader />
       ) : showLogin ? (
         <>
+          <MetaData title="Login" />
           <form
             className="flex flex-col w-full mt-0 sm:mt-5 md:w-1/2  max-w-lg p-4 pt-3 sm:pt-12 pb-8 rounded-md bg-white shadow-xl "
             onSubmit={loginSubmit}
@@ -132,6 +134,7 @@ const LoginSignup = () => {
         </>
       ) : (
         <>
+          <MetaData title="SignUp" />
           <form
             className="flex flex-col w-full mt-0 sm:mt-5 md:w-1/2  max-w-lg p-4 pt-1 sm:pt-4 pb-8 rounded-md bg-white shadow-xl "
             onSubmit={registerSubmit}

@@ -33,7 +33,7 @@ const ProductCard = ({ product }) => {
       onMouseLeave={() => setShow(false)}
     >
       <img
-        src={product.images[0].url}
+        src={product?.images[0]?.url}
         className="w-full h-[230px] lg:h-[300px]"
         alt=""
       />
@@ -56,7 +56,7 @@ const ProductCard = ({ product }) => {
           {product.name.toUpperCase()}
         </p>
         <Rating {...options} size="small" style={{ color: "black" }} />
-        <p
+        <div
           className=""
           onMouseEnter={() => setShowCart(true)}
           onMouseLeave={() => setShowCart(false)}
@@ -73,9 +73,9 @@ const ProductCard = ({ product }) => {
               ADD TO CART
             </button>
           ) : (
-            <div className="text-sm sm:text-base">{`₹${product.price}`}</div>
+            <p className="text-sm sm:text-base">{`₹${product.price}`}</p>
           )}
-        </p>
+        </div>
       </div>
     </Link>
   );

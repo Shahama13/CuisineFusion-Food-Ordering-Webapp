@@ -3,6 +3,7 @@ import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import CartItemCard from "../components/CartItemCard";
 import { ShoppingCartIcon } from "@heroicons/react/24/outline";
+import MetaData from "../MetaData";
 
 const Cart = () => {
   const navigate = useNavigate();
@@ -23,6 +24,7 @@ const Cart = () => {
 
   return (
     <>
+      <MetaData title="Fabizo - Cart" />
       {cartItems.length === 0 ? (
         <div className="flex px-2 md:p-0 flex-col w-full  items-center justify-center">
           <ShoppingCartIcon className="h-16 w-16 mt-6 text-black md:mb-2 mb-0" />
