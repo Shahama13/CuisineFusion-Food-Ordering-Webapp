@@ -6,6 +6,8 @@ import { Chart } from "react-chartjs-2";
 import { useDispatch, useSelector } from "react-redux";
 import { getAllAdminProducts } from "../Actions/product";
 import { getAllUsers } from "../Actions/user";
+import { getAllOrders } from "../Actions/order";
+import MetaData from "../MetaData";
 
 const Dashboard = () => {
   
@@ -18,6 +20,7 @@ const Dashboard = () => {
   useEffect(() => {
     dispatch(getAllAdminProducts());
     dispatch(getAllUsers());
+     dispatch(getAllOrders());
   }, [dispatch]);
   
   const lineState = {
@@ -34,6 +37,7 @@ const Dashboard = () => {
 
   return (
     <>
+      <MetaData title="Admin Dashboard" />
       <TopBar />
       <div className="flex flex-row flex-wrap space-x-5 mx-1 justify-center items-center">
         <div className="mb-4 px-2 py-5 md:px-5 md:py-14 rounded-full bg-green-50 text-sm md:text-lg ">

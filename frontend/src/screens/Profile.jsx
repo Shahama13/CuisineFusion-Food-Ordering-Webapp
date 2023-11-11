@@ -38,11 +38,15 @@ const Profile = () => {
               <div className="flex items-center">
                 <DashboardOutlinedIcon
                   className=" text-black mr-3"
-                  style={{ fontSize: "36px" }}
+                  style={{
+                    fontSize: window.innerWidth < 400 ? "25px" : "36px",
+                  }}
                 />
-                <p className="font-serif text-slate-700 text-xl">Dashboard</p>
+                <p className="font-serif text-slate-700 md:text-xl text-base">
+                  Dashboard
+                </p>
               </div>
-              <ChevronRightIcon className="h-6 w-6 text-gray-600" />
+              <ChevronRightIcon className="h-4 w-4 md:h-6 md:w-6 text-gray-600" />
             </div>
           )}
 
@@ -53,11 +57,13 @@ const Profile = () => {
             <div className="flex items-center">
               <ListAltIcon
                 className=" text-black mr-3"
-                style={{ fontSize: "36px" }}
+                style={{ fontSize: window.innerWidth < 400 ? "25px" : "36px" }}
               />
-              <p className="font-serif text-slate-700 text-xl">My Orders</p>
+              <p className="font-serif text-slate-700 md:text-xl text-base">
+                My Orders
+              </p>
             </div>
-            <ChevronRightIcon className="h-6 w-6 text-gray-600" />
+            <ChevronRightIcon className="h-4 w-4 md:h-6 md:w-6 text-gray-600" />
           </div>
 
           <div
@@ -65,10 +71,12 @@ const Profile = () => {
             className="cursor-pointer bg-gray-100 my-3 mx-10 rounded-md hover:bg-gray-200 p-4 flex items-center justify-between"
           >
             <div className="flex items-center">
-              <Cog6ToothIcon className="h-8 w-8 mr-3 text-black" />
-              <p className="font-serif text-slate-700 text-xl">Edit Profile</p>
+              <Cog6ToothIcon className="md:h-8 md:w-8 h-6 w-6 mr-3 text-black" />
+              <p className="font-serif text-slate-700 md:text-xl text-base">
+                Edit Profile
+              </p>
             </div>
-            <ChevronRightIcon className="h-6 w-6 text-gray-600" />
+            <ChevronRightIcon className="h-4 w-4 md:h-6 md:w-6 text-gray-600" />
           </div>
 
           <div
@@ -76,29 +84,31 @@ const Profile = () => {
             className="cursor-pointer bg-gray-100 my-3 mx-10 rounded-md hover:bg-gray-200 p-4 flex items-center justify-between"
           >
             <div className="flex items-center">
-              <KeyIcon className="h-8 w-8 mr-3 text-black" />
-              <p className="font-serif text-slate-700 text-xl">
+              <KeyIcon className="md:h-8 md:w-8 h-6 w-6 mr-3 text-black" />
+              <p className="font-serif text-slate-700  md:text-xl text-base">
                 Update Password
               </p>
             </div>
-            <ChevronRightIcon className="h-6 w-6 text-gray-600" />
+            <ChevronRightIcon className="h-4 w-4 md:h-6 md:w-6 text-gray-600" />
           </div>
 
           <div
             onClick={() => {
               dispatch(logout());
-              navigate("/products");
+              navigate("/");
             }}
             className="cursor-pointer bg-gray-100 my-3 mx-10 rounded-md hover:bg-gray-200 p-4 flex items-center justify-between"
           >
             <div className="flex items-center">
               <ExitToAppIcon
                 className=" text-black mr-3"
-                style={{ fontSize: "36px" }}
+                style={{ fontSize: window.innerWidth < 400 ? "25px" : "36px" }}
               />
-              <p className="font-serif text-slate-700 text-xl">Logout</p>
+              <p className="font-serif text-slate-700  md:text-xl text-base">
+                Logout
+              </p>
             </div>
-            <ChevronRightIcon className="h-6 w-6 text-gray-600" />
+            <ChevronRightIcon className="h-4 w-4 md:h-6 md:w-6 text-gray-600" />
           </div>
         </>
       )}

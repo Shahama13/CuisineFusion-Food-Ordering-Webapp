@@ -66,5 +66,31 @@ const userSlice = createSlice({
     }
 })
 
+export const wishSlice=createSlice({
+    name:"wishlist",
+    initialState:{},
+    reducers:{
+        getRequest:(state)=>{
+            state.loading=true
+        },
+        getSuccess:(state,action)=>{
+            state.loading=false;
+            state.wishlist=action.payload;
+        },
+        addRemoveSuccess:(state)=>{
+            state.loading = false;
+        },
+        getFailure:(state,action)=>{
+            state.loading = false;
+            state.error = action.payload.error;
+        },
+        clear:(state)=>{
+            state.error=null
+        }
+    }
+})
+
+export const { getRequest, getSuccess, addRemoveSuccess, getFailure, clear }= wishSlice.actions
+
 export const { loginRequest, logoutSuccess, logoutFail, loadUserRequest, loadUserFail, loadUserSuccess, registerRequest, registerFail, registerSuccess, loginSuccess, loginFail, clearError } = userSlice.actions;
 export default userSlice.reducer

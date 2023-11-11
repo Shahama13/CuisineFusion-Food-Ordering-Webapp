@@ -18,7 +18,7 @@ const Cart = () => {
     0
   );
 
-  const shippingCharges = subTotal > 999 ? 0 : 200; // Now it's a number, not a string
+  const shippingCharges = subTotal > 999 ? 0 : 200; 
   const gst = 0.02 * subTotal;
   const total = subTotal + shippingCharges + gst;
 

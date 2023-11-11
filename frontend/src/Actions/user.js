@@ -3,6 +3,7 @@ import { loadUserFail, loadUserRequest, loadUserSuccess, loginFail, loginRequest
 import toast from "react-hot-toast";
 import { forgotPasswordFail, forgotPasswordRequest, forgotPasswordSuccess, resetPasswordFail, resetPasswordRequest, resetPasswordSuccess, updatePasswordFail, updatePasswordRequest, updatePasswordSuccess, updateProfileFail, updateProfileRequest, updateProfileSuccess } from "../Reducers/profile";
 import { allOrderFailure, allOrderRequest, getAllUserSuccess } from "../Reducers/order";
+import { getRequest, getSuccess, addRemoveSuccess, getFailure } from "../Reducers/user"
 
 export const login = (email, password) => async (dispatch) => {
     try {
@@ -15,7 +16,7 @@ export const login = (email, password) => async (dispatch) => {
         dispatch(loginSuccess({
             user: data.user
         }))
-        toast.success("login Successful")
+        toast.success("Logged In")
 
 
     } catch (error) {
@@ -152,3 +153,25 @@ export const getAllUsers = () => async (dispatch) => {
         dispatch(allOrderFailure(error.response.data.message))
     }
 }
+
+export const getMyWishlist = () => async (dispatch) => {
+    try {
+        dispatch(getRequest());
+        const { data } = await axios.get("/api/v1/wishlist");
+        dispatch(getSuccess(data.wishlist))
+    } catch (error) {
+        dispatch(getFailure(error.response.data.message))
+    }
+}
+
+export const addRemoveItems = (productId) => async (dispatch) => {
+    try {
+        dispatch(getRequest());
+        const { data } = await axios.post("/api/v1/add-wishlist", { productId });
+        dispatch(addRemoveSuccess())
+        toast.success(data.message)
+    } catch (error) {
+        dispatch(getFailure(error.response.data.message))
+    }
+}
+

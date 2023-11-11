@@ -20,8 +20,7 @@ const categories = [
   "Footwear",
   "Attire",
   "Children",
-  "Tops",
-  "Jeans",
+  "Perfumes",
   "Accessories",
   "Gadgets",
   "Home Decor"
@@ -119,7 +118,7 @@ const Products = () => {
                     <ul className="space-y-2">
                       {categories.map((category) => (
                         <li
-                          className=""
+                          className="cursor-pointer"
                           key={category}
                           onClick={() => {
                             setCategory(category);
@@ -166,10 +165,12 @@ const Products = () => {
             )}
 
             {products && products.length >= 1 ? (
-              <div className="flex flex-row flex-wrap items-center justify-center">
-                {products.map((product) => (
-                  <ProductCard key={product._id} product={product} />
-                ))}
+              <div className="flex flex-col items-center justify-center mb-3">
+                <div className="flex flex-row flex-wrap items-center justify-center">
+                  {products.map((product) => (
+                    <ProductCard key={product._id} product={product} />
+                  ))}
+                </div>
                 {resultPerPage < filteredProductCount && (
                   <div className="paginationBox">
                     <Stack spacing={2}>

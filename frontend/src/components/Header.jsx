@@ -1,4 +1,4 @@
-import React, {  useState } from "react";
+import React, { useState } from "react";
 import {
   HomeIcon,
   UserIcon,
@@ -13,7 +13,7 @@ import {
   ShoppingBagIcon as ShoppingBagIconSolid,
   HeartIcon as HeartIconSolid,
 } from "@heroicons/react/24/solid";
-import { Tooltip } from "@mui/material";
+import { Badge, Tooltip } from "@mui/material";
 import IconButton from "@mui/material/IconButton";
 import { useLocation, useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
@@ -22,13 +22,15 @@ const Header = () => {
   const navigate = useNavigate();
   const location = useLocation();
 
+  const { cartItems } = useSelector((state) => state.cart);
+
   const [keyword, setKeyword] = useState("");
   const [showSearch, setShowSearch] = useState(false);
 
   const { isAuthenticated } = useSelector((state) => state.user);
 
   function home() {
-    navigate("/");
+    navigate("/products");
   }
   function login() {
     navigate("/login");
@@ -45,7 +47,7 @@ const Header = () => {
   const actions = [
     {
       icon:
-        location.pathname === "/" ? (
+        location.pathname === "/products" ? (
           <HomeSolid className="h-5 w-5 md:h-6 md:w-6 text-black" />
         ) : (
           <HomeIcon className="h-5 w-5 md:h-6 md:w-6 text-black" />
@@ -57,40 +59,48 @@ const Header = () => {
     {
       icon:
         location.pathname === "/cart" ? (
-          <ShoppingBagIconSolid className="h-5 w-5 md:h-6 md:w-6 text-black" />
-        ) : (
+          cartItems?.length === 0 ? (
+            <ShoppingBagIconSolid className="h-5 w-5 md:h-6 md:w-6 text-black" />
+          ) : (
+            <Badge badgeContent={cartItems?.length} color="error">
+              <ShoppingBagIconSolid className="h-5 w-5 md:h-6 md:w-6 text-black" />
+            </Badge>
+          )
+        ) : cartItems?.length === 0 ? (
           <ShoppingBagIcon className="h-5 w-5 md:h-6 md:w-6 text-black" />
+        ) : (
+          <Badge badgeContent={cartItems?.length} color="error">
+            <ShoppingBagIcon className="h-5 w-5 md:h-6 md:w-6 text-black" />
+          </Badge>
         ),
       name: "Cart",
       func: cart,
     },
+    {
+      icon:
+        location.pathname === "/wishlist" ? (
+          <HeartIconSolid className="h-5 w-5 md:h-6 md:w-6 text-black" />
+        ) : (
+          <HeartIcon className="h-5 w-5 md:h-6 md:w-6 text-black" />
+        ),
+
+      name: "Wishlist",
+      func: wishlist,
+    },
   ];
 
   if (isAuthenticated) {
-    actions.push(
-      {
-        icon:
-          location.pathname === "/wishlist" ? (
-            <HeartIconSolid className="h-5 w-5 md:h-6 md:w-6 text-black" />
-          ) : (
-            <HeartIcon className="h-5 w-5 md:h-6 md:w-6 text-black" />
-          ),
+    actions.push({
+      icon:
+        location.pathname === "/account" ? (
+          <UserSolid className="h-5 w-5 md:h-6 md:w-6 text-black" />
+        ) : (
+          <UserIcon className="h-5 w-5 md:h-6 md:w-6 text-black" />
+        ),
 
-        name: "Wishlist",
-        func: wishlist,
-      },
-      {
-        icon:
-          location.pathname === "/account" ? (
-            <UserSolid className="h-5 w-5 md:h-6 md:w-6 text-black" />
-          ) : (
-            <UserIcon className="h-5 w-5 md:h-6 md:w-6 text-black" />
-          ),
-
-        name: "My Account",
-        func: account,
-      }
-    );
+      name: "My Account",
+      func: account,
+    });
   }
   if (!isAuthenticated) {
     actions.push({
@@ -113,7 +123,6 @@ const Header = () => {
       navigate(`/products`);
     }
   };
-
 
   return (
     <>

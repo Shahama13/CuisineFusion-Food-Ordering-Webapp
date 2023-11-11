@@ -11,6 +11,7 @@ import {
 import { PencilSquareIcon, TrashIcon } from "@heroicons/react/24/outline";
 import { Link, useNavigate } from "react-router-dom";
 import Loader from "../components/Loader";
+import MetaData from "../MetaData";
 
 const AllProducts = () => {
   const dispatch = useDispatch();
@@ -39,6 +40,7 @@ const AllProducts = () => {
   }, [dispatch, error, success, deleteError]);
   return (
     <>
+      <MetaData title="All Products" />
       <TopBar />
       <div className="overflow-x-scroll">
         <div className="flex justify-between text-sm sm:text-base mx-3 mb-6 text-center bg-teal-50 overflow-x-scroll min-w-[634px]">
@@ -52,9 +54,14 @@ const AllProducts = () => {
           <Loader />
         ) : (
           adminProducts?.map((product) => (
-            <div key={product._id} className="flex justify-between text-xs sm:text-sm  mx-3 mb-2 text-center py-1 bg-blue-50 min-w-[634px]">
+            <div
+              key={product._id}
+              className="flex justify-between text-xs sm:text-sm  mx-3 mb-2 text-center py-1 bg-blue-50 min-w-[634px]"
+            >
               <div className="w-52">{product._id}</div>
-              <Link to={`/product/${product._id}`} className="w-36">{product.name}</Link>
+              <Link to={`/product/${product._id}`} className="w-36">
+                {product.name}
+              </Link>
               <div className="w-16">{product.price}</div>
               <div className="flex items-center justify-center">
                 <PencilSquareIcon

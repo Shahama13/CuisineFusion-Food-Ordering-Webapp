@@ -11,13 +11,13 @@ import toast from "react-hot-toast";
 import { clearproductError, productReset } from "../Reducers/product";
 import { useNavigate } from "react-router-dom";
 import { newProduct } from "../Actions/product";
+import MetaData from "../MetaData";
 
 const categories = [
   "Footwear",
   "Attire",
   "Children",
-  "Tops",
-  "Jeans",
+  "Perfumes",
   "Accessories",
   "Gadgets",
   "Home Decor",
@@ -65,7 +65,7 @@ const CreateProduct = () => {
       dispatch(clearproductError());
     }
     if (success) {
-      toast.success("Product created successfully");
+      toast.success("Product created");
       dispatch(productReset());
       navigate("/admin/dashboard");
     }
@@ -73,6 +73,7 @@ const CreateProduct = () => {
 
   return (
     <>
+      <MetaData title="Create Product" />
       <TopBar />
       <div className="w-full items-center justify-center flex flex-col px-4 pt-2 md:p-0">
         <form

@@ -11,6 +11,7 @@ import { HeartIcon as HeartOutline } from "@heroicons/react/24/solid";
 import { clearError } from "../Reducers/product";
 import { addItemsToCart } from "../Actions/cart";
 import MetaData from "../MetaData";
+import { addRemoveItems, getMyWishlist } from "../Actions/user";
 
 const ProductDetails = () => {
   const dispatch = useDispatch();
@@ -20,10 +21,13 @@ const ProductDetails = () => {
   const { product, loading, error } = useSelector(
     (state) => state.productDetails
   );
+  const { wishlist } = useSelector((state) => state.wishlist);
+
+  const { loading: wishlistLoading } = useSelector((state) => state.wishlist);
 
   const addtoCartHandler = async () => {
     await dispatch(addItemsToCart(params.id, quantity));
-    toast.success("Item added to cart");
+    toast.success("Added to cart");
     setQuantity(1);
   };
   const increaseQuantity = () => {
@@ -36,15 +40,21 @@ const ProductDetails = () => {
 
   useEffect(() => {
     dispatch(getProductDetails(params.id));
-    window.scrollTo(0, 0);
+    wishlist?.forEach((item) => {
+      if (item._id === params.id) {
+        setHeart(true);
+      }
+    });
+
     if (error) {
       toast.error(error);
       dispatch(clearError());
     }
-  }, [dispatch, params.id, error]);
+  }, [dispatch, params.id, error,wishlist]);
 
-  const toggleHeart = (e) => {
-    setHeart((prev) => !prev);
+  const toggleHeart = () => {
+    dispatch(addRemoveItems(params.id));
+    dispatch(getMyWishlist());
   };
   const options = {
     size: "large",
@@ -54,7 +64,7 @@ const ProductDetails = () => {
   };
   return (
     <>
-      {loading ? (
+      {loading || wishlistLoading ? (
         <Loader />
       ) : (
         <>
@@ -63,14 +73,14 @@ const ProductDetails = () => {
             <div className="flex flex-row overflow-x-scroll">
               {product?.images?.map((item, i) => (
                 <img
-                  className=" h-[460px]"
+                  className=" h-[470px] min-w-[400px]"
                   key={item.url}
                   src={item.url}
                   alt={`${i}slide`}
                 />
               ))}
             </div>
-            <div className="ml-4 sm:ml-8 mt-6 ">
+            <div className="ml-4 sm:ml-8 mt-6 flex-1">
               <h2 className="font-serif text-2xl md:text-4xl mb-4 ">
                 {product?.name.toUpperCase()}
               </h2>
@@ -90,7 +100,7 @@ const ProductDetails = () => {
                   (Inclusive of all taxes)
                 </p>
               </div>
-              <p className="text-[15px] md:text-sm text-gray-600 mb-6">
+              <p className="text-[15px] w-[90%] sm:w-full md:text-sm text-gray-600 mb-6 pr-2">
                 {product?.description}
               </p>
 
@@ -119,17 +129,13 @@ const ProductDetails = () => {
                   ADD TO CART
                 </button>
 
-                {heart ? (
-                  <HeartOutline
-                    className="h-9 w-9 text-red-500"
-                    onClick={toggleHeart}
-                  />
-                ) : (
-                  <HeartIcon
-                    className="h-6 w-6 text-black"
-                    onClick={toggleHeart}
-                  />
-                )}
+                <button onClick={toggleHeart}>
+                  {heart ? (
+                    <HeartOutline className="h-9 w-9 text-red-500" />
+                  ) : (
+                    <HeartIcon className="h-6 w-6 text-black" />
+                  )}
+                </button>
               </div>
             </div>
           </div>

@@ -1,6 +1,6 @@
 import { configureStore } from "@reduxjs/toolkit";
 import productSlice, { createProductSlice, newReviewSlice, productDetailsSlice, removeProductSlice } from "./Reducers/product"
-import userSlice from "./Reducers/user"
+import userSlice, { wishSlice } from "./Reducers/user"
 import profileSlice from "./Reducers/profile"
 import cartSlice from "./Reducers/cart"
 import orderSlice, { adminOrderSlice } from "./Reducers/order"
@@ -17,6 +17,7 @@ const store = configureStore({
         review: newReviewSlice.reducer,
         removeProduct: removeProductSlice.reducer,
         adminOrder: adminOrderSlice.reducer,
+        wishlist:wishSlice.reducer,
     }
 })
 export default store;

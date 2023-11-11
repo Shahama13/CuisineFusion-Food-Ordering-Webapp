@@ -19,11 +19,12 @@ import MyOrders from './screens/MyOrders';
 import Profile from './screens/Profile';
 import UpdatePassword from './screens/UpdatePassword';
 import Payment from './screens/Payment';
-import NotFound from './screens/NotFound.jsx';
+import NotFound from './screens/NotFound';
 import OrderDetails from './screens/OrderDetails';
 import ForgotPassword from './screens/ForgotPassword';
+import Wishlist from './screens/Wishlist';
 import store from "./store"
-import { loadUser } from './Actions/user';
+import { getMyWishlist, loadUser } from './Actions/user';
 import User from './protectedRoutes/User';
 import Header from './components/Header';
 import Admin from './protectedRoutes/Admin';
@@ -32,20 +33,19 @@ import AllProducts from './admin/AllProducts';
 import CreateProduct from './admin/CreateProduct';
 import Orders from './admin/Orders';
 import Users from './admin/Users';
-import EditProduct from './admin/EditProduct.jsx';
-import EditOrder from './admin/EditOrder.jsx';
-
+import EditProduct from './admin/EditProduct';
 
 
 function App() {
 
   useEffect(() => {
     store.dispatch(loadUser())
+    store.dispatch(getMyWishlist());
   }, [])
 
-  window.addEventListener("contextmenu", (e) => {
-    e.preventDefault();
-  })
+  // window.addEventListener("contextmenu", (e) => {
+  //   e.preventDefault();
+  // })
 
   return (
     <Router>
@@ -59,6 +59,7 @@ function App() {
         <Route exact path="/cart" element={<Cart />} />
         <Route exact path="/password/forgot" element={<ForgotPassword />} />
         <Route exact path="/password/reset/:token" element={<PasswordReset />} />
+        <Route exact path="/wishlist" element={<Wishlist />} />
         <Route path="*" element={<NotFound />} />
 
         <Route element={<User />}>
@@ -79,7 +80,6 @@ function App() {
           <Route exact path="/admin/product" element={<CreateProduct />} />
           <Route exact path="/admin/product/:id" element={<EditProduct />} />
           <Route exact path="/admin/orders" element={<Orders />} />
-          <Route exact path="/admin/order/:id" element={<EditOrder />} />
           <Route exact path="/admin/users" element={<Users />} />
         </Route>
 

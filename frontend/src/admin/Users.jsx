@@ -5,6 +5,7 @@ import Loader from "../components/Loader";
 import { getAllUsers } from "../Actions/user";
 import toast from "react-hot-toast";
 import { clearOrderError } from "../Reducers/order";
+import MetaData from "../MetaData";
 
 const Users = () => {
   const dispatch = useDispatch();
@@ -21,6 +22,7 @@ const Users = () => {
 
   return (
     <>
+      <MetaData title="All Users" />
       <TopBar />
       <div className="overflow-x-scroll">
         <div className="flex justify-between text-sm sm:text-base mx-3 mb-6  bg-teal-50 overflow-x-scroll min-w-[950px]">

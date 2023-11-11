@@ -54,18 +54,14 @@ const MyOrders = () => {
               </div>
               {item.orderItems.map((order) => (
                 <div className="flex mb-2">
-                  <div>
-                    <img
-                      src={order.image}
-                      alt=""
-                      className="w-40 md:h-40 h-24"
-                    />
+                  <div className="w-20 bg-blue-400 md:h-40 md:w-32 h-36">
+                    <img src={order.image} alt="" className="w-full h-full" />
                   </div>
-                  <div className="ml-4">
-                    <h6 className="text-gray-500 text-xs">
+                  <div className="md:ml-4 ml-2">
+                    <h6 className="text-gray-500 text-[5px] sm:text-sm md:text-base">
                       ORDER ID - {order._id.toUpperCase()}
                     </h6>
-                    <div className="font-serif md:text-xl text-lg">
+                    <div className="font-serif md:text-xl text-sm">
                       {order.name}
                     </div>
                     <div className="text-sm">Quantity - {order.quantity}</div>

@@ -11,13 +11,13 @@ import toast from "react-hot-toast";
 import { clearproductError, productReset } from "../Reducers/product";
 import { useNavigate, useParams } from "react-router-dom";
 import { getProductDetails, updateProduct } from "../Actions/product";
+import MetaData from "../MetaData";
 
 const categories = [
   "Footwear",
   "Attire",
   "Children",
-  "Tops",
-  "Jeans",
+  "Perfumes",
   "Accessories",
   "Gadgets",
   "Home Decor",
@@ -85,6 +85,7 @@ const EditProduct = () => {
 
   return (
     <>
+      <MetaData title="Edit Product" />
       <TopBar />
       <div className="w-full items-center justify-center flex flex-col px-4 pt-2 md:p-0">
         <form
@@ -181,7 +182,7 @@ const EditProduct = () => {
             type="submit"
             disabled={loading ? true : false}
           >
-            Update Product
+            {loading ? "Wait..." : "Update Product"}
           </button>
         </form>
       </div>

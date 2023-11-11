@@ -1,4 +1,4 @@
-import React, {  useState } from "react";
+import React, { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { saveShippingInfo } from "../Reducers/cart";
 import { Country, State, City } from "country-state-city";
@@ -17,7 +17,7 @@ import MetaData from "../MetaData";
 
 const Address = () => {
   const dispatch = useDispatch();
-  const navigate = useNavigate()
+  const navigate = useNavigate();
   const { shippingInfo } = useSelector((state) => state.cart);
 
   const [address, setAddress] = useState(shippingInfo.address);
@@ -27,16 +27,23 @@ const Address = () => {
   const [pinCode, setPinCode] = useState(shippingInfo.pinCode);
   const [phoneNo, setPhoneNo] = useState(shippingInfo.phoneNo);
 
-  const shippingSubmit = async(e) => {
+  const shippingSubmit = async (e) => {
     e.preventDefault();
-    if(phoneNo.length<10 || phoneNo.length>10){
-      toast.error("Invalid phone number")
-      return
+    if (phoneNo.length < 10 || phoneNo.length > 10) {
+      toast.error("Invalid phone number");
+      return;
     }
-   await dispatch(saveShippingInfo({
-      address,city,state,country,pinCode,phoneNo
-    }))
-navigate("/order-summary")
+    await dispatch(
+      saveShippingInfo({
+        address,
+        city,
+        state,
+        country,
+        pinCode,
+        phoneNo,
+      })
+    );
+    navigate("/order-summary");
   };
 
   return (

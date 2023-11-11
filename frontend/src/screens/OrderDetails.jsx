@@ -37,7 +37,7 @@ const OrderDetails = () => {
 
   useEffect(() => {
     if (success) {
-      toast.success("Review added successfully");
+      toast.success("Review added!");
       dispatch(reviewReset());
     }
     if (reviewError) {

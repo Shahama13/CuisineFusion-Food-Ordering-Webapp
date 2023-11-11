@@ -172,9 +172,6 @@ export const updateProfile = catchAsyncError(async (req, res, next) => {
 
     }
 
-
-
-    // TO Do Cloudinary
     await User.findByIdAndUpdate(req.user._id, newUser, {
         new: true,
         runValidators: true,
@@ -209,12 +206,6 @@ export const getSingleUser = catchAsyncError(async (req, res, next) => {
 
 // Modify user role - A
 export const updateUserRole = catchAsyncError(async (req, res, next) => {
-
-    // const newUserData = {
-    //     name: req.body.name,
-    //     email: req.body.email,
-    //     role: req.body.role,
-    // }
 
     await User.findByIdAndUpdate(req.params.id, { role: req.body.role }, {
         new: true,
