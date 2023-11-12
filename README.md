@@ -37,7 +37,7 @@ CHECKOUT PROCESS : Guides users through a smooth and secure checkout process.Inc
 
 ORDER SUMMARY : Displays a comprehensive order summary before the final purchase.Includes a breakdown of items, quantities, and total cost.
 
-REVIEWS?RATINGS : Enables users to create/update reviews and ratings for products
+REVIEWS/RATINGS : Enables users to create/update reviews and ratings for products.
 
 PAYMENT GATEWAY INTEGRATION : Utilizes Razorpay for a secure and seamless payment gateway integration.
 
