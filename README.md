@@ -14,6 +14,8 @@ EMAIL NOTIFICATIONS : Sends confirmation emails upon successful user registratio
 
 PASSWORD RECOVERY : Allows users to recover their passwords through a secure email-based process using nodemailer.
 
+MEDIA UPLOAD : Uses cloudinary to store images on cloud while creating products/user/admin profiles
+
 
 ADMIN PANEL : Offers an admin panel with secure login for administrative tasks.Admins can manage products, user accounts, and orders efficiently.
 
