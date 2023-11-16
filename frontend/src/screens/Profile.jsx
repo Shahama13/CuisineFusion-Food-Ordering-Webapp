@@ -11,7 +11,7 @@ import {
 import ListAltIcon from "@mui/icons-material/ListAlt";
 import ExitToAppIcon from "@mui/icons-material/ExitToApp";
 import DashboardOutlinedIcon from "@mui/icons-material/DashboardOutlined";
-import { logout } from "../Actions/user";
+import { getMyWishlist, loadUser, logout } from "../Actions/user";
 
 const Profile = () => {
   const navigate = useNavigate();
@@ -95,6 +95,8 @@ const Profile = () => {
           <div
             onClick={() => {
               dispatch(logout());
+              dispatch(loadUser());
+              dispatch(getMyWishlist());
               navigate("/");
             }}
             className="cursor-pointer bg-gray-100 my-3 mx-10 rounded-md hover:bg-gray-200 p-4 flex items-center justify-between"
