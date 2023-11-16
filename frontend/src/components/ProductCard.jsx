@@ -16,11 +16,15 @@ const ProductCard = ({ product }) => {
   const [showCart, setShowCart] = useState(false);
 
   const { wishlist } = useSelector((state) => state.wishlist);
+  const { isAuthenticated } = useSelector((state) => state.user);
 
   const toggleHeart = (e) => {
     e.preventDefault();
+    if (!isAuthenticated) {
+      return toast.error("Login to add to wishlist");
+    }
     dispatch(addRemoveItems(product._id));
-    dispatch(getMyWishlist())
+    dispatch(getMyWishlist());
   };
 
   const options = {

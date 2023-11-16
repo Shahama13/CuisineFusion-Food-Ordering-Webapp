@@ -22,6 +22,7 @@ const ProductDetails = () => {
     (state) => state.productDetails
   );
   const { wishlist } = useSelector((state) => state.wishlist);
+  const { isAuthenticated } = useSelector((state) => state.user);
 
   const { loading: wishlistLoading } = useSelector((state) => state.wishlist);
 
@@ -53,6 +54,9 @@ const ProductDetails = () => {
   }, [dispatch, params.id, error,wishlist]);
 
   const toggleHeart = () => {
+    if(!isAuthenticated){
+      return toast.error("Login to add to wishlist")
+    }
     dispatch(addRemoveItems(params.id));
     dispatch(getMyWishlist());
   };
